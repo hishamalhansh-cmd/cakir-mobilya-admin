@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin - Çakir Mobilya</title>
+  <style>
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f7f4ef;color:#1a1a1a}
+    .wrap{max-width:1200px;margin:0 auto;padding:24px}
+    .grid{display:grid;grid-template-columns:360px 1fr;gap:18px}
+    .card{background:#fff;border:1px solid #e8dfd2;border-radius:22px;padding:20px}
+    h1,h2,h3{margin:0 0 12px}
+    h1{font-family:Georgia,"Times New Roman",serif;font-size:34px}
+    h2{font-family:Georgia,"Times New Roman",serif;font-size:28px}
+    .field{display:grid;gap:8px;margin-bottom:12px}
+    .field label{font-weight:700}
+    .field input,.field textarea,.field select{min-height:44px;border:1px solid #e1d7c8;border-radius:14px;padding:10px 12px;background:#fff}
+    .field textarea{min-height:96px;resize:vertical}
+    .actions{display:flex;gap:10px;flex-wrap:wrap}
+    button{min-height:44px;padding:0 16px;border-radius:14px;border:1px solid #d7c8b1;background:#fffaf3;font-weight:700;cursor:pointer}
+    button.primary{background:#111;color:#fff;border-color:#111}
+    .status{padding:12px 14px;border-radius:14px;background:#f7f2ea;border:1px solid #eadfce;color:#5a4a37;margin-bottom:14px}
+    .list{display:grid;gap:12px}
+    .item{padding:14px;border:1px solid #e8dfd2;border-radius:16px;background:#fffaf8}
+    .item strong{display:block;margin-bottom:4px}
+    .item small{color:#7b746a}
+    .hidden{display:none}
+    .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <h1>Admin Paneli</h1>
+      <button id="logoutBtn" class="hidden">Çıkış Yap</button>
+    </div>
+
+    <div id="loginCard" class="card">
+      <div class="status" id="loginStatus">Giriş yapın.</div>
+      <div class="field">
+        <label>Kullanıcı adı</label>
+        <input id="username" value="Hisham">
+      </div>
+      <div class="field">
+        <label>Şifre</label>
+        <input id="password" type="password" value="Hisham33">
+      </div>
+      <div class="actions">
+        <button class="primary" id="loginBtn">Giriş Yap</button>
+      </div>
+    </div>
+
+    <div id="adminArea" class="hidden">
+      <div class="grid">
+        <div class="card">
+          <h2>Kategori Ekle</h2>
+          <div class="field">
+            <label>Başlık</label>
+            <input id="catTitle" placeholder="Örn: İç Kapılar">
+          </div>
+          <div class="field">
+            <label>Tür</label>
+            <select id="catType">
+              <option value="ic_kapi">İç Kapı</option>
+              <option value="dis_kapi">Dış Kapı</option>
+              <option value="banyo">Banyo</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Sıra</label>
+            <input id="catSort" type="number" value="0">
+          </div>
+          <div class="actions">
+            <button class="primary" id="saveCategoryBtn">Kategori Kaydet</button>
+          </div>
+          <hr style="margin:18px 0;border:none;border-top:1px solid #eee">
+          <h2>Marka Ekle</h2>
+          <div class="field">
+            <label>Kategori</label>
+            <select id="brandCategory"></select>
+          </div>
+          <div class="field">
+            <label>Başlık</label>
+            <input id="brandTitle" placeholder="Örn: Evkap">
+          </div>
+          <div class="field">
+            <label>Sıra</label>
+            <input id="brandSort" type="number" value="0">
+          </div>
+          <div class="actions">
+            <button class="primary" id="saveBrandBtn">Marka Kaydet</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Model Ekle</h2>
+          <div class="field">
+            <label>Kategori</label>
+            <select id="modelCategory"></select>
+          </div>
+          <div class="field">
+            <label>Marka</label>
+            <select id="modelBrand"></select>
+          </div>
+          <div class="field">
+            <label>Model adı</label>
+            <input id="modelTitle" placeholder="Örn: PVC-174 Saten Beyaz">
+          </div>
+          <div class="field">
+            <label>Açıklama</label>
+            <textarea id="modelDescription" placeholder="Kısa açıklama"></textarea>
+          </div>
+          <div class="field">
+            <label>Sıra</label>
+            <input id="modelSort" type="number" value="0">
+          </div>
+          <div class="field">
+            <label>Görsel</label>
+            <input id="modelImage" type="file" accept="image/*">
+          </div>
+          <div class="actions">
+            <button class="primary" id="saveModelBtn">Model Kaydet</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:18px">
+        <h2>Kayıtlar</h2>
+        <div class="status" id="adminStatus">Hazır.</div>
+        <div class="grid">
+          <div>
+            <h3>Kategoriler</h3>
+            <div id="categoriesList" class="list"></div>
+          </div>
+          <div>
+            <h3>Markalar</h3>
+            <div id="brandsList" class="list"></div>
+          </div>
+        </div>
+        <div style="margin-top:18px">
+          <h3>Modeller</h3>
+          <div id="modelsList" class="list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const qs = (s) => document.querySelector(s);
+    const statusEl = qs("#adminStatus");
+    const loginStatusEl = qs("#loginStatus");
+
+    function setStatus(msg) { if (statusEl) statusEl.textContent = msg; }
+    function setLoginStatus(msg) { if (loginStatusEl) loginStatusEl.textContent = msg; }
+
+    async function api(url, options = {}) {
+      const res = await fetch(url, {
+        credentials: "same-origin",
+        headers: { "content-type": "application/json", ...(options.headers || {}) },
+        ...options
+      });
+      const contentType = res.headers.get("content-type") || "";
+      const data = contentType.includes("application/json") ? await res.json() : null;
+      if (!res.ok) throw new Error((data && data.error) || "İşlem başarısız");
+      return data;
+    }
+
+    async function uploadImage(file) {
+      if (!file) return "";
+      const fd = new FormData();
+      fd.append("file", file);
+      const res = await fetch("/api/upload", { method: "POST", body: fd, credentials: "same-origin" });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Görsel yükleme başarısız");
+      return data.image_url || "";
+    }
+
+    async function login() {
+      const username = qs("#username").value.trim();
+      const password = qs("#password").value.trim();
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        credentials: "same-origin",
+        body: JSON.stringify({ username, password })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Giriş başarısız");
+      qs("#loginCard").classList.add("hidden");
+      qs("#adminArea").classList.remove("hidden");
+      qs("#logoutBtn").classList.remove("hidden");
+      setLoginStatus("Giriş başarılı.");
+      await refreshAll();
+    }
+
+    async function logout() {
+      await fetch("/api/logout", { method: "POST", credentials: "same-origin" });
+      location.reload();
+    }
+
+    async function checkSession() {
+      const res = await fetch("/api/me", { credentials: "same-origin" });
+      if (res.ok) {
+        qs("#loginCard").classList.add("hidden");
+        qs("#adminArea").classList.remove("hidden");
+        qs("#logoutBtn").classList.remove("hidden");
+        await refreshAll();
+      }
+    }
+
+    async function refreshCategories() {
+      const data = await api("/api/categories");
+      const items = data.items || [];
+      const catSelects = [qs("#brandCategory"), qs("#modelCategory")];
+      catSelects.forEach(sel => {
+        sel.innerHTML = '<option value="">Seçin</option>' + items.map(i => `<option value="${i.id}">${i.title} (${i.type})</option>`).join("");
+      });
+      qs("#categoriesList").innerHTML = items.map(i => `
+        <div class="item">
+          <strong>${i.title}</strong>
+          <small>Tür: ${i.type} · Sıra: ${i.sort_order}</small>
+          <div class="actions" style="margin-top:10px">
+            <button onclick="deleteCategory(${i.id})">Sil</button>
+          </div>
+        </div>
+      `).join("") || "<div class='item'>Kayıt yok</div>";
+      return items;
+    }
+
+    async function refreshBrands() {
+      const data = await api("/api/brands");
+      const items = data.items || [];
+      qs("#modelBrand").innerHTML = '<option value="">Seçin</option>' + items.map(i => `<option value="${i.id}">${i.title}</option>`).join("");
+      qs("#brandsList").innerHTML = items.map(i => `
+        <div class="item">
+          <strong>${i.title}</strong>
+          <small>Kategori ID: ${i.category_id || "-"} · Sıra: ${i.sort_order}</small>
+          <div class="actions" style="margin-top:10px">
+            <button onclick="deleteBrand(${i.id})">Sil</button>
+          </div>
+        </div>
+      `).join("") || "<div class='item'>Kayıt yok</div>";
+      return items;
+    }
+
+    async function refreshModels() {
+      const data = await api("/api/models");
+      const items = data.items || [];
+      qs("#modelsList").innerHTML = items.map(i => `
+        <div class="item">
+          <strong>${i.title}</strong>
+          <small>${i.category_title || "-"} / ${i.brand_title || "-"} · Sıra: ${i.sort_order}</small>
+          ${i.image_url ? `<div style="margin-top:10px"><img src="${i.image_url}" style="max-width:180px;border-radius:12px"></div>` : ""}
+          <div class="actions" style="margin-top:10px">
+            <button onclick="deleteModel(${i.id})">Sil</button>
+          </div>
+        </div>
+      `).join("") || "<div class='item'>Kayıt yok</div>";
+      return items;
+    }
+
+    async function refreshAll() {
+      await refreshCategories();
+      await refreshBrands();
+      await refreshModels();
+      setStatus("Kayıtlar yenilendi.");
+    }
+
+    async function saveCategory() {
+      await api("/api/categories", {
+        method: "POST",
+        body: JSON.stringify({
+          title: qs("#catTitle").value.trim(),
+          type: qs("#catType").value,
+          sort_order: Number(qs("#catSort").value || 0)
+        })
+      });
+      qs("#catTitle").value = "";
+      qs("#catSort").value = "0";
+      await refreshAll();
+      setStatus("Kategori kaydedildi.");
+    }
+
+    async function saveBrand() {
+      await api("/api/brands", {
+        method: "POST",
+        body: JSON.stringify({
+          category_id: Number(qs("#brandCategory").value || 0),
+          title: qs("#brandTitle").value.trim(),
+          sort_order: Number(qs("#brandSort").value || 0)
+        })
+      });
+      qs("#brandTitle").value = "";
+      qs("#brandSort").value = "0";
+      await refreshAll();
+      setStatus("Marka kaydedildi.");
+    }
+
+    async function saveModel() {
+      const file = qs("#modelImage").files[0];
+      const imageUrl = file ? await uploadImage(file) : "";
+      await api("/api/models", {
+        method: "POST",
+        body: JSON.stringify({
+          category_id: Number(qs("#modelCategory").value || 0),
+          brand_id: Number(qs("#modelBrand").value || 0),
+          title: qs("#modelTitle").value.trim(),
+          description: qs("#modelDescription").value.trim(),
+          image_url: imageUrl,
+          sort_order: Number(qs("#modelSort").value || 0)
+        })
+      });
+      qs("#modelTitle").value = "";
+      qs("#modelDescription").value = "";
+      qs("#modelSort").value = "0";
+      qs("#modelImage").value = "";
+      await refreshAll();
+      setStatus("Model kaydedildi.");
+    }
+
+    window.deleteCategory = async (id) => { await api(`/api/categories?id=${id}`, { method: "DELETE" }); await refreshAll(); setStatus("Kategori silindi."); };
+    window.deleteBrand = async (id) => { await api(`/api/brands?id=${id}`, { method: "DELETE" }); await refreshAll(); setStatus("Marka silindi."); };
+    window.deleteModel = async (id) => { await api(`/api/models?id=${id}`, { method: "DELETE" }); await refreshAll(); setStatus("Model silindi."); };
+
+    qs("#loginBtn").addEventListener("click", async () => {
+      try { await login(); } catch (e) { setLoginStatus(e.message); }
+    });
+    qs("#logoutBtn").addEventListener("click", logout);
+    qs("#saveCategoryBtn").addEventListener("click", async () => {
+      try { await saveCategory(); } catch (e) { setStatus(e.message); }
+    });
+    qs("#saveBrandBtn").addEventListener("click", async () => {
+      try { await saveBrand(); } catch (e) { setStatus(e.message); }
+    });
+    qs("#saveModelBtn").addEventListener("click", async () => {
+      try { await saveModel(); } catch (e) { setStatus(e.message); }
+    });
+
+    checkSession();
+  </script>
+</body>
+</html>

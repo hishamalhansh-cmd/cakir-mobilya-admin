@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Çakir Mobilya</title>
+  <style>
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f7f4ef;color:#1a1a1a}
+    .wrap{max-width:1200px;margin:0 auto;padding:24px}
+    .hero{padding:36px;border-radius:28px;background:linear-gradient(135deg,#2e251f,#b8986c 60%,#f3ede3);color:#fff}
+    .hero h1{margin:0 0 12px;font-size:48px;font-family:Georgia,"Times New Roman",serif}
+    .hero p{margin:0;max-width:700px;line-height:1.8}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px}
+    .card{background:#fff;border:1px solid #e8dfd2;border-radius:22px;overflow:hidden}
+    .card img{width:100%;height:220px;object-fit:cover;background:#eee}
+    .card-body{padding:18px}
+    .card-body h3{margin:0 0 8px;font-size:24px;font-family:Georgia,"Times New Roman",serif}
+    .card-body p{margin:0;color:#6f675c;line-height:1.7}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}.hero h1{font-size:34px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>Çakir Mobilya</h1>
+      <p>Bu sürüm Cloudflare Pages + Functions + D1 + R2 tabanlı gerçek yönetim altyapısı için hazırlanmıştır.</p>
+    </section>
+    <section class="grid" id="modelsGrid"></section>
+  </div>
+
+  <script>
+    async function loadModels() {
+      const grid = document.getElementById("modelsGrid");
+      const res = await fetch("/api/models");
+      const data = await res.json();
+      const items = data.items || [];
+      if (!items.length) {
+        grid.innerHTML = '<div class="card"><div class="card-body"><h3>Henüz model yok</h3><p>Admin panelinden model ekleyebilirsiniz.</p></div></div>';
+        return;
+      }
+      grid.innerHTML = items.map(item => `
+        <article class="card">
+          ${item.image_url ? `<img src="${item.image_url}" alt="${item.title}">` : '<div style="height:220px;background:#eee"></div>'}
+          <div class="card-body">
+            <h3>${item.title}</h3>
+            <p>${item.description || ""}</p>
+          </div>
+        </article>
+      `).join("");
+    }
+    loadModels();
+  </script>
+</body>
+</html>

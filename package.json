@@ -1,0 +1,12 @@
+{
+  "name": "cakir-mobilya-cloudflare-admin",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler pages dev public --compatibility-date=2026-03-26",
+    "deploy": "wrangler pages deploy public"
+  },
+  "devDependencies": {
+    "wrangler": "^4.12.0"
+  }
+}

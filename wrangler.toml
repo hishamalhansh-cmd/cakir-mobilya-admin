@@ -1,0 +1,17 @@
+name = "cakir-mobilya-admin"
+compatibility_date = "2026-03-26"
+pages_build_output_dir = "public"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "cakir-mobilya-db"
+database_id = "0cbc3f12-7baf-483c-b7bd-118469fe26bb"
+
+[[r2_buckets]]
+binding = "IMAGES"
+bucket_name = "cakir-mobilya-images"
+
+[vars]
+SITE_TITLE = "Çakir Mobilya"
+AUTH_COOKIE = "cm_admin_session"
+AUTH_SECRET = "Hisham33-cakir-mobilya-admin-2026"
