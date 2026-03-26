@@ -1,54 +1,2220 @@
-<!doctype html>
-<html lang="tr">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Çakir Mobilya</title>
-  <style>
-    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f7f4ef;color:#1a1a1a}
-    .wrap{max-width:1200px;margin:0 auto;padding:24px}
-    .hero{padding:36px;border-radius:28px;background:linear-gradient(135deg,#2e251f,#b8986c 60%,#f3ede3);color:#fff}
-    .hero h1{margin:0 0 12px;font-size:48px;font-family:Georgia,"Times New Roman",serif}
-    .hero p{margin:0;max-width:700px;line-height:1.8}
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px}
-    .card{background:#fff;border:1px solid #e8dfd2;border-radius:22px;overflow:hidden}
-    .card img{width:100%;height:220px;object-fit:cover;background:#eee}
-    .card-body{padding:18px}
-    .card-body h3{margin:0 0 8px;font-size:24px;font-family:Georgia,"Times New Roman",serif}
-    .card-body p{margin:0;color:#6f675c;line-height:1.7}
-    @media (max-width:900px){.grid{grid-template-columns:1fr}.hero h1{font-size:34px}}
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <section class="hero">
-      <h1>Çakir Mobilya</h1>
-      <p>Bu sürüm Cloudflare Pages + Functions + D1 + R2 tabanlı gerçek yönetim altyapısı için hazırlanmıştır.</p>
-    </section>
-    <section class="grid" id="modelsGrid"></section>
+<!DOCTYPE html><html lang="tr"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Çakir Mobilya</title><style>
+:root{--text:#111;--muted:#7b746a;--gold2:#b69463;--soft:#f7f2ea;--line:#ece4d7}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#fff;color:var(--text);line-height:1.45}
+.container{width:min(1280px,94%);margin:auto} img{max-width:100%;display:block}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.98);border-bottom:1px solid var(--line)}
+.nav{min-height:86px;display:grid;grid-template-columns:auto 1fr;align-items:center;gap:22px;padding:10px 0 0}
+.brand{display:flex;align-items:center;gap:16px}
+.logo{width:78px;height:78px;border-radius:24px;border:1px solid #e1d5c2;background:linear-gradient(145deg,#fffdfa 0%, #f2e7d7 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;flex:none}
+.logo::before,.logo::after{content:"";position:absolute;height:1.4px;width:50px;background:linear-gradient(90deg,transparent,var(--gold2),transparent)}
+.logo::before{top:14px}.logo::after{bottom:14px}
+.logo-mark{position:relative;width:54px;height:54px;font-family:Georgia,"Times New Roman",serif;font-weight:700;font-style:italic}
+.logo-mark .c,.logo-mark .m{position:absolute;background:linear-gradient(180deg,#c9a977 0%, #8e6840 55%, #6d4f31 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.logo-mark .c{left:2px; top:3px;font-size:35px;transform:rotate(-7deg)} .logo-mark .m{right:0; bottom:1px;font-size:31px;transform:rotate(4deg)}
+.logo-mark .line{position:absolute;width:30px;height:2px;background:linear-gradient(90deg,transparent,#b99261,transparent);transform:rotate(-38deg);top:24px;left:11px}
+.brand h1{margin:0;font-size:31px;font-family:Georgia,"Times New Roman",serif}
+.brand small{display:block;margin-top:5px;font-size:12px;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+.menu-wrap{grid-column:1/-1;overflow-x:auto;scrollbar-width:none}.menu-wrap::-webkit-scrollbar{display:none}
+.menu{display:flex;gap:34px;align-items:center;min-width:max-content;padding:0 0 16px 0;justify-content:center}
+.menu button{font-size:15px;font-weight:800;position:relative;background:none;border:none;padding:0;cursor:pointer;color:inherit}
+.menu .active:after,.menu button:hover:after{content:"";position:absolute;left:0;bottom:-7px;width:100%;height:2px;background:var(--gold2)}
+.hero{padding:28px 0 20px;background:radial-gradient(circle at 80% 10%, rgba(214,194,160,.18), transparent 28%), #fff}
+.hero-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.feature{min-height:420px;border-radius:30px;overflow:hidden;background:linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.52)), linear-gradient(135deg, #7f715d 0%, #cfb994 52%, #f4ede3 100%);display:flex;align-items:flex-end;cursor:pointer}
+.feature.alt1{background:linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.50)), linear-gradient(135deg, #62594f 0%, #9d8b73 45%, #efe6d7 100%)}
+.feature.alt2{background:linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.50)), linear-gradient(135deg, #544f49 0%, #b89f7e 48%, #f0e7da 100%)}
+.feature-content{width:100%;padding:30px;color:#fff}
+.kicker{font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;font-weight:700}
+.feature h2{margin:0;font-size:44px;line-height:.95;font-family:Georgia,"Times New Roman",serif;text-transform:uppercase}
+.cta{margin-top:18px;display:inline-flex;min-height:44px;padding:0 18px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.35);align-items:center}
+.page{display:none}.page.active{display:block}
+.section{padding:28px 0}
+.box{margin-bottom:22px;padding:22px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(180deg,#fff, #fbf8f3)}
+.box h3{margin:0 0 8px;font-size:28px;font-family:Georgia,"Times New Roman",serif;text-transform:uppercase}.box p{margin:0;color:var(--muted)}
+.series-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.series-card{border:1px solid var(--line);border-radius:28px;overflow:hidden;background:#fff}
+.series-image{aspect-ratio:16/9;background:#f4efe7}
+.series-image img{width:100%;height:100%;object-fit:cover}
+.series-body{padding:20px}
+.series-label{display:inline-block;padding:6px 10px;border-radius:999px;background:var(--soft);color:#8a6b42;font-size:12px;font-weight:800;margin-bottom:10px}
+.series-title{margin:0 0 10px;font-size:28px;font-family:Georgia,"Times New Roman",serif;text-transform:uppercase}
+.models{display:flex;flex-wrap:wrap;gap:10px}
+.model-pill{padding:9px 12px;border-radius:999px;border:1px solid var(--line);background:#fffaf3;font-size:13px;font-weight:700;color:#4e453a}
+.tabs{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 20px}
+.subtab{padding:12px 16px;border-radius:999px;border:1px solid var(--line);background:#fff;cursor:pointer;font-weight:800}
+.subtab.active{background:var(--soft);color:#7a603a;border-color:#ddcfb7}
+.subcontent{display:none}.subcontent.active{display:block}
+.company-icons{display:flex;gap:18px;flex-wrap:wrap;margin:0 0 22px}
+.company-icon-btn{width:120px;background:#fff;border:1px solid var(--line);border-radius:24px;padding:14px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:10px}
+.company-icon-btn.active{background:var(--soft);border-color:#ddcfb7}
+.company-icon-logo{width:62px;height:62px;border-radius:18px;border:1px solid #e2d7c5;background:linear-gradient(145deg,#fffdfa,#f1e5d4);display:flex;align-items:center;justify-content:center;padding:10px}
+.company-icon-logo img{width:100%;height:100%;object-fit:contain}
+.company-icon-label{font-size:14px;font-weight:800;color:#5b4a36;text-align:center}
+.company-panel{display:none}.company-panel.active{display:block}
+.grid-cats{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:18px}
+.cat-link{border:none;background:none;padding:0;cursor:pointer;text-align:inherit}
+.cat-box{border:1px solid var(--line);border-radius:22px;background:#fff;overflow:hidden}
+.cat-top{height:130px;background:linear-gradient(135deg,#efe6d7,#d8c09a);display:flex;align-items:center;justify-content:center;font-family:Georgia,"Times New Roman",serif;font-size:28px;color:#6d563a}
+.cat-title{padding:14px 16px;font-size:20px;font-weight:800}
+.back-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:999px;border:1px solid var(--line);background:#fff;cursor:pointer;font-weight:800;margin-bottom:18px}
+.simple-box{border:1px solid var(--line);border-radius:28px;background:linear-gradient(180deg,#fbf9f5 0%,#fff 100%);padding:28px}
+.simple-box h3{margin:0 0 12px;font-size:30px;font-family:Georgia,'Times New Roman',serif;text-transform:uppercase}.simple-box p{margin:0 0 18px;color:var(--muted)}
+
+.banyo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:18px}
+.banyo-link{border:none;background:none;padding:0;cursor:pointer;text-align:inherit}
+.banyo-box{border:1px solid var(--line);border-radius:22px;background:#fff;overflow:hidden}
+.banyo-top{height:130px;background:linear-gradient(135deg,#efe6d7,#d8c09a);display:flex;align-items:center;justify-content:center;font-family:Georgia,"Times New Roman",serif;font-size:28px;color:#6d563a}
+.banyo-title{padding:14px 16px;font-size:20px;font-weight:800}
+.series-list{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.series-pill{padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:#fffaf3;font-size:13px;font-weight:700;color:#4e453a}
+
+.banyo-model-card{margin-top:18px;border:1px solid var(--line);border-radius:22px;background:#fff;overflow:hidden}
+.banyo-model-card img{width:100%;height:260px;object-fit:cover;background:#f3f3f3}
+.banyo-model-body{padding:18px}
+.banyo-model-body h4{margin:0 0 8px;font-size:24px;font-family:Georgia,"Times New Roman",serif}
+.banyo-model-body p{margin:0;color:#7b746a}
+
+.biani-model-card{margin-top:18px;border:1px solid var(--line);border-radius:22px;background:#fff;overflow:hidden}
+.biani-model-card img{width:100%;height:260px;object-fit:cover;background:#f3f3f3}
+.biani-model-body{padding:18px}
+.biani-model-body h4{margin:0 0 8px;font-size:24px;font-family:Georgia,"Times New Roman",serif}
+.biani-model-body p{margin:0;color:#7b746a}
+
+.emek-model-card{margin-top:18px;border:1px solid var(--line);border-radius:22px;background:#fff;overflow:hidden}
+.emek-model-card img{width:100%;height:260px;object-fit:cover;background:#f3f3f3}
+.emek-model-body{padding:18px}
+.emek-model-body h4{margin:0 0 8px;font-size:24px;font-family:Georgia,"Times New Roman",serif}
+.emek-model-body p{margin:0;color:#7b746a}
+
+
+
+@media (max-width:1100px){.banyo-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media (max-width:700px){.banyo-grid{grid-template-columns:1fr;}}
+
+
+.mel-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.mel-card{background:#fff;border:1px solid #e8dfd2;border-radius:18px;overflow:hidden}
+.mel-visual{height:120px;background:linear-gradient(135deg,#efe6d7,#d8c09a);display:flex;align-items:center;justify-content:center;font-family:Georgia,"Times New Roman",serif;font-size:22px;color:#6e583d;padding:18px;text-align:center}
+.mel-body{padding:14px}
+.mel-body h4{margin:0 0 10px 0;font-size:16px;line-height:1.45;min-height:46px}
+.mel-chip{font-size:12px;padding:6px 10px;border-radius:999px;background:#f7f2ea;border:1px solid #eadfce;font-weight:700}
+.mel-chips{display:flex;gap:10px;flex-wrap:wrap}
+.mel-muted{color:#6a6358}
+@media (max-width:1100px){.mel-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
+@media (max-width:800px){.mel-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.mel-visual{height:110px}}
+@media (max-width:520px){.mel-grid{grid-template-columns:1fr;}.mel-body h4{min-height:auto}}
+
+
+.pvc-hero-badges,.pvc-chips{display:flex;gap:10px;flex-wrap:wrap}
+.pvc-badge,.pvc-chip{padding:8px 12px;border-radius:999px;background:#f7f2ea;border:1px solid #eadfce;font-weight:700;font-size:13px}
+.pvc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.pvc-card{background:#fff;border:1px solid #e8dfd2;border-radius:22px;overflow:hidden}
+.pvc-visual{height:170px;background:linear-gradient(135deg,#efe6d7,#d8c09a);display:flex;align-items:center;justify-content:center;font-family:Georgia,"Times New Roman",serif;font-size:28px;color:#6e583d;padding:18px;text-align:center}
+.pvc-body{padding:18px}
+.pvc-body h4{margin:0 0 10px 0;font-size:20px;line-height:1.35}
+.pvc-muted{color:#6a6358}
+.pvc-two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.pvc-detail-box{background:#fff;border:1px solid #e8dfd2;border-radius:22px;padding:20px}
+@media (max-width:900px){.pvc-grid,.pvc-two{grid-template-columns:1fr}}
+
+.pvc-section-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:12px}
+.pvc-section-head h3{margin:0;font-size:28px}
+.pvc-count{font-size:14px;color:#7b746a;font-weight:700}
+.pvc-hero-badges{margin-top:10px}
+.pvc-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.pvc-card{border-radius:18px}
+.pvc-visual{height:120px;font-size:22px}
+.pvc-body{padding:14px}
+.pvc-body h4{font-size:16px;line-height:1.45;min-height:46px}
+.pvc-chip{font-size:12px;padding:6px 10px}
+.pvc-group-title{margin:0 0 12px 0;font-size:22px;font-family:Georgia,"Times New Roman",serif}
+@media (max-width:1100px){.pvc-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
+@media (max-width:800px){.pvc-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.pvc-visual{height:110px}}
+@media (max-width:520px){.pvc-grid{grid-template-columns:1fr;}.pvc-body h4{min-height:auto}}
+
+
+.footer{margin-top:36px;background:#faf7f2;border-top:1px solid var(--line)}
+.footer-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;padding:42px 0 30px}
+.footer h3{margin:0 0 12px;font-size:19px;font-family:Georgia,"Times New Roman",serif;text-transform:uppercase}.footer p,.footer li{margin:0;color:#5f594f;font-size:15px}
+.footer ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}.copyright{border-top:1px solid var(--line);padding:16px 0 22px;color:#7c756a;font-size:13px}
+
+.home-hero{
+  position:relative;
+  min-height:78vh;
+  display:flex;
+  align-items:center;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.35) 38%, rgba(0,0,0,.12) 100%),
+    linear-gradient(135deg,#6d6253 0%, #b99f78 45%, #efe4d6 100%);
+  border-radius:34px;
+  overflow:hidden;
+}
+.home-hero-inner{padding:56px;max-width:760px;color:#fff}
+.home-eyebrow{display:inline-flex;padding:8px 14px;border:1px solid rgba(255,255,255,.28);border-radius:999px;background:rgba(255,255,255,.08);font-size:12px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase}
+.home-hero h2{margin:18px 0 14px;font-size:58px;line-height:.95;font-family:Georgia,"Times New Roman",serif}
+.home-hero p{margin:0 0 20px;font-size:17px;line-height:1.8;color:rgba(255,255,255,.92)}
+.home-actions{display:flex;gap:12px;flex-wrap:wrap}
+.home-btn{
+  min-height:48px;padding:0 18px;border-radius:999px;border:1px solid rgba(255,255,255,.30);
+  background:rgba(255,255,255,.10);color:#fff;font-weight:800;cursor:pointer
+}
+.home-btn.primary{background:#fff;color:#1a1a1a;border-color:#fff}
+.home-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+.home-stat{padding:16px 18px;border:1px solid rgba(255,255,255,.16);border-radius:20px;background:rgba(255,255,255,.08);backdrop-filter:blur(6px)}
+.home-stat strong{display:block;font-size:22px;font-family:Georgia,"Times New Roman",serif}
+.home-stat span{display:block;margin-top:4px;font-size:13px;color:rgba(255,255,255,.85)}
+
+.front-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:20px;margin-top:20px}
+.front-card{
+  background:#fff;border:1px solid var(--line);border-radius:28px;padding:24px;
+  box-shadow:0 12px 28px rgba(0,0,0,.04)
+}
+.front-card h3{margin:0 0 10px;font-size:28px;font-family:Georgia,"Times New Roman",serif}
+.front-card p{margin:0;color:var(--muted);line-height:1.8}
+.quick-links{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
+.quick-link{
+  border:1px solid var(--line);border-radius:22px;background:#fffaf3;padding:18px;text-align:left;cursor:pointer
+}
+.quick-link strong{display:block;font-size:18px;font-family:Georgia,"Times New Roman",serif}
+.quick-link span{display:block;margin-top:6px;color:var(--muted);font-size:14px}
+.home-showcase{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:20px}
+.showcase-card{border:1px solid var(--line);border-radius:26px;overflow:hidden;background:#fff}
+.showcase-visual{
+  height:220px;
+  background:linear-gradient(135deg,#ece3d6,#cdb08a);
+  display:flex;align-items:end;justify-content:flex-start;padding:22px;color:#4f3e29;
+  font-family:Georgia,"Times New Roman",serif;font-size:30px
+}
+.showcase-body{padding:18px}
+.showcase-body h4{margin:0 0 8px;font-size:24px;font-family:Georgia,"Times New Roman",serif}
+.showcase-body p{margin:0;color:var(--muted)}
+.home-band{
+  margin-top:20px;padding:22px 24px;border:1px solid var(--line);border-radius:28px;
+  background:linear-gradient(180deg,#fff,#fbf8f3)
+}
+.home-band-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.home-band-item{padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:#fff}
+.home-band-item strong{display:block;margin-bottom:4px}
+.home-band-item span{color:var(--muted);font-size:14px}
+@media (max-width:1100px){
+  .home-hero h2{font-size:46px}
+  .front-grid,.home-showcase,.home-band-grid{grid-template-columns:1fr 1fr}
+}
+
+.home-hero{display:grid;grid-template-columns:1fr .95fr;gap:24px}
+.home-hero-visual{position:relative;min-height:620px;display:flex;align-items:center;justify-content:center;padding:26px}
+.hero-scene{position:relative;width:100%;height:100%;min-height:560px}
+.hero-card{
+  position:absolute;border-radius:28px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:0 24px 50px rgba(0,0,0,.22);
+  background:rgba(255,255,255,.10);
+  backdrop-filter:blur(6px);
+}
+.hero-card-label{
+  position:absolute;left:14px;bottom:14px;
+  padding:8px 12px;border-radius:999px;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18);
+  color:#fff;font-size:12px;font-weight:800;letter-spacing:.8px;text-transform:uppercase
+}
+.hero-door-main{
+  right:4%; top:3%; width:46%; height:74%;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)),
+    linear-gradient(135deg,#d7c2a0 0%, #b79665 28%, #8c6b45 55%, #eadfce 100%);
+}
+.hero-door-frame{
+  position:absolute;inset:8% 11%;
+  border:12px solid rgba(95,63,35,.45);
+  border-radius:18px;
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.12);
+}
+.hero-door-panel{position:absolute;left:18%;right:18%;top:12%;bottom:12%}
+.hero-door-panel:before,.hero-door-panel:after{
+  content:"";position:absolute;left:0;right:0;border:4px solid rgba(93,61,32,.35);border-radius:14px;
+  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.04));
+}
+.hero-door-panel:before{top:0;height:42%}
+.hero-door-panel:after{bottom:0;height:28%}
+.hero-door-handle{
+  position:absolute;left:14%;top:49%;width:52px;height:10px;border-radius:999px;
+  background:#d8d3c9;box-shadow:18px 0 0 0 rgba(216,211,201,.0);
+}
+.hero-door-handle:after{
+  content:"";position:absolute;right:-8px;top:-7px;width:16px;height:24px;border-radius:999px;
+  border:3px solid #d8d3c9;border-left:none;
+}
+.hero-vanity{
+  left:3%; bottom:7%; width:48%; height:40%;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)),
+    linear-gradient(135deg,#f4ede2 0%, #d7c0a0 55%, #b08c62 100%);
+}
+.hero-vanity-top{
+  position:absolute;left:10%;right:10%;top:14%;height:14%;border-radius:18px;
+  background:linear-gradient(180deg,#ffffff,#e7dfd1);
+  box-shadow:0 10px 18px rgba(0,0,0,.08);
+}
+.hero-vanity-mirror{
+  position:absolute;left:24%;right:24%;top:-18%;height:40%;
+  border-radius:20px;background:linear-gradient(180deg,#f9fafb,#d6dde6);
+  border:8px solid rgba(255,255,255,.35);
+  box-shadow:0 12px 22px rgba(0,0,0,.10);
+}
+.hero-vanity-body{
+  position:absolute;left:12%;right:12%;bottom:12%;top:28%;
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;
+}
+.hero-vanity-body div{
+  border-radius:16px;
+  background:linear-gradient(180deg,#d9bf9a,#a88256);
+  border:3px solid rgba(102,71,40,.24);
+}
+.hero-vanity-body div:last-child{position:relative}
+.hero-vanity-body div:last-child:after{
+  content:"";position:absolute;left:-7px;top:20%;bottom:20%;width:2px;background:rgba(255,255,255,.35)
+}
+.hero-small{
+  left:10%; top:5%; width:28%; height:28%;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02)),
+    linear-gradient(135deg,#3f3630 0%, #7f6a55 42%, #d7c0a0 100%);
+}
+.hero-small-door{
+  position:absolute;inset:16%;
+  border-radius:16px;
+  border:8px solid rgba(255,255,255,.18);
+}
+.hero-small-door:before{
+  content:"";position:absolute;left:14%;right:14%;top:12%;bottom:12%;
+  border-radius:12px;border:3px solid rgba(255,255,255,.22)
+}
+.hero-dots{
+  position:absolute;inset:auto 2% 4% auto;width:120px;height:120px;opacity:.22;
+  background-image:radial-gradient(#fff 1.2px, transparent 1.2px);
+  background-size:14px 14px;
+}
+@media (max-width:1100px){
+  .home-hero{grid-template-columns:1fr}
+  .home-hero-visual{min-height:420px;padding-top:0}
+  .hero-scene{min-height:380px}
+}
+@media (max-width:800px){
+  .home-hero-visual{min-height:360px}
+  .hero-scene{min-height:320px}
+  .hero-door-main{width:52%;height:72%}
+  .hero-vanity{width:56%;height:42%}
+}
+
+@media (max-width:800px){
+  .home-hero{min-height:auto}
+  .home-hero-inner{padding:28px}
+  .home-hero h2{font-size:36px}
+  .home-stats,.front-grid,.quick-links,.home-showcase,.home-band-grid{grid-template-columns:1fr}
+}
+
+
+.zoomable{cursor:zoom-in}
+.image-lightbox{position:fixed;inset:0;background:rgba(0,0,0,.82);display:none;align-items:center;justify-content:center;padding:24px;z-index:9999}
+.image-lightbox.active{display:flex}
+.image-lightbox img{max-width:min(92vw,1200px);max-height:88vh;width:auto;height:auto;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.45);background:#fff}
+.lightbox-close{position:absolute;top:18px;right:18px;width:44px;height:44px;border:none;border-radius:999px;background:rgba(255,255,255,.16);color:#fff;font-size:28px;line-height:1;cursor:pointer}
+.lightbox-caption{position:absolute;left:24px;right:24px;bottom:18px;color:#fff;text-align:center;font-size:15px}
+
+@media (max-width:900px){.nav{grid-template-columns:1fr;gap:14px;padding:14px 0 0}.hero-grid,.series-grid,.footer-grid,.grid-cats{grid-template-columns:1fr}.feature{min-height:320px}.menu{justify-content:flex-start;padding-bottom:14px}.brand h1{font-size:27px}}
+
+.home-hero{
+  position:relative;
+  min-height:78vh;
+  display:flex;
+  align-items:stretch;
+  background:
+    linear-gradient(100deg, rgba(12,10,8,.78) 0%, rgba(24,20,16,.58) 34%, rgba(82,63,40,.26) 62%, rgba(209,189,157,.16) 100%),
+    radial-gradient(circle at 78% 24%, rgba(255,255,255,.14) 0%, transparent 24%),
+    linear-gradient(135deg,#3c3127 0%, #7b6448 24%, #b29166 52%, #d8c3a0 76%, #efe7db 100%);
+  border-radius:34px;
+  overflow:hidden;
+}
+.home-hero:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.08), transparent 18%),
+    linear-gradient(0deg, rgba(0,0,0,.12), transparent 22%);
+  pointer-events:none;
+}
+.home-hero-inner{
+  position:relative;
+  z-index:2;
+  width:100%;
+  max-width:760px;
+  padding:62px 56px 56px;
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.home-eyebrow{
+  display:inline-flex;
+  width:max-content;
+  padding:9px 15px;
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(8px);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+}
+.home-hero h2{
+  margin:18px 0 14px;
+  font-size:64px;
+  line-height:.92;
+  font-family:Georgia,"Times New Roman",serif;
+  letter-spacing:-1px;
+}
+.home-hero p{
+  margin:0 0 22px;
+  max-width:620px;
+  font-size:17px;
+  line-height:1.85;
+  color:rgba(255,255,255,.92);
+}
+.home-actions{display:flex;gap:12px;flex-wrap:wrap}
+.home-btn{
+  min-height:50px;
+  padding:0 20px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.24);
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  font-weight:800;
+  cursor:pointer;
+  backdrop-filter:blur(8px);
+}
+.home-btn.primary{
+  background:#fff;
+  color:#151515;
+  border-color:#fff;
+}
+.home-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin-top:24px;
+  max-width:760px;
+}
+.home-stat{
+  padding:18px 18px 16px;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:22px;
+  background:rgba(255,255,255,.07);
+  backdrop-filter:blur(8px);
+}
+.home-stat strong{
+  display:block;
+  font-size:22px;
+  font-family:Georgia,"Times New Roman",serif;
+}
+.home-stat span{
+  display:block;
+  margin-top:4px;
+  font-size:13px;
+  color:rgba(255,255,255,.84);
+}
+.hero-modern-tags{
+  position:absolute;
+  right:24px;
+  bottom:24px;
+  z-index:2;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  max-width:44%;
+}
+.hero-modern-tag{
+  padding:10px 14px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.10);
+  color:#fff;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.8px;
+  backdrop-filter:blur(8px);
+  text-transform:uppercase;
+}
+.hero-glow{
+  position:absolute;
+  right:-6%;
+  top:8%;
+  width:52%;
+  height:84%;
+  border-radius:40px;
+  background:
+    radial-gradient(circle at 38% 34%, rgba(255,255,255,.28) 0%, rgba(255,255,255,.06) 18%, transparent 38%),
+    radial-gradient(circle at 70% 58%, rgba(255,255,255,.16) 0%, transparent 28%),
+    linear-gradient(145deg, rgba(255,255,255,.16), rgba(255,255,255,.02));
+  filter:blur(10px);
+  opacity:.9;
+}
+.hero-lines{
+  position:absolute;
+  inset:auto 3% 5% auto;
+  width:210px;
+  height:210px;
+  opacity:.18;
+  background-image:linear-gradient(rgba(255,255,255,.9) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.9) 1px, transparent 1px);
+  background-size:20px 20px;
+}
+@media (max-width:1100px){
+  .home-hero h2{font-size:50px}
+  .hero-modern-tags{max-width:60%}
+}
+@media (max-width:800px){
+  .home-hero{min-height:620px}
+  .home-hero-inner{padding:30px 24px 26px}
+  .home-hero h2{font-size:40px}
+  .home-hero p{font-size:15px}
+  .home-stats{grid-template-columns:1fr}
+  .hero-modern-tags{
+    position:static;
+    max-width:100%;
+    justify-content:flex-start;
+    margin:18px 24px 24px;
+  }
+  .hero-glow{
+    width:88%;
+    height:42%;
+    right:-18%;
+    top:auto;
+    bottom:2%;
+  }
+}
+
+
+/* fuller hero visual */
+.home-hero{
+  background:
+    linear-gradient(95deg, rgba(18,14,10,.76) 0%, rgba(33,25,18,.58) 30%, rgba(102,79,52,.28) 58%, rgba(214,193,160,.14) 100%),
+    linear-gradient(135deg,#3b3027 0%, #7c6548 26%, #b29267 52%, #d9c3a0 76%, #efe6da 100%) !important;
+}
+.home-hero:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 78% 22%, rgba(255,255,255,.16), transparent 18%),
+    radial-gradient(circle at 70% 62%, rgba(255,255,255,.10), transparent 24%),
+    radial-gradient(circle at 82% 84%, rgba(255,255,255,.08), transparent 18%);
+  pointer-events:none;
+}
+.hero-fill-scene{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+.fill-door{
+  position:absolute;
+  right:8%;
+  top:11%;
+  width:34%;
+  height:64%;
+  border-radius:28px;
+  background:linear-gradient(145deg,#eadfce 0%, #cfb692 34%, #a88358 64%, #7d5d3d 100%);
+  box-shadow:0 28px 60px rgba(0,0,0,.18);
+  opacity:.95;
+}
+.fill-door:before{
+  content:"";
+  position:absolute;
+  inset:6% 8%;
+  border:10px solid rgba(108,78,46,.42);
+  border-radius:20px;
+}
+.fill-door:after{
+  content:"";
+  position:absolute;
+  left:28%;
+  right:28%;
+  top:14%;
+  bottom:14%;
+  border-radius:16px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.03)),
+    linear-gradient(145deg,#d4bc99,#ae8a61);
+  box-shadow:
+    inset 0 0 0 4px rgba(104,74,43,.26),
+    inset 0 -120px 0 0 rgba(255,255,255,.06);
+}
+.fill-vanity{
+  position:absolute;
+  right:24%;
+  bottom:9%;
+  width:36%;
+  height:28%;
+  border-radius:28px;
+  background:linear-gradient(145deg,#f3ebdf 0%, #dac5a6 48%, #b58f62 100%);
+  box-shadow:0 24px 50px rgba(0,0,0,.16);
+}
+.fill-vanity:before{
+  content:"";
+  position:absolute;
+  left:18%;
+  right:18%;
+  top:-24%;
+  height:42%;
+  border-radius:20px;
+  background:linear-gradient(180deg,#fbfdff,#d8dfe8);
+  border:8px solid rgba(255,255,255,.42);
+  box-shadow:0 14px 30px rgba(0,0,0,.12);
+}
+.fill-vanity:after{
+  content:"";
+  position:absolute;
+  left:8%;
+  right:8%;
+  top:18%;
+  height:12%;
+  border-radius:16px;
+  background:linear-gradient(180deg,#ffffff,#e4dbcf);
+}
+.fill-drawers{
+  position:absolute;
+  left:10%;
+  right:10%;
+  top:38%;
+  bottom:12%;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.fill-drawers div{
+  border-radius:16px;
+  background:linear-gradient(180deg,#dbc3a1,#aa8458);
+  border:3px solid rgba(105,74,43,.20);
+}
+.fill-drawers div:last-child{position:relative}
+.fill-drawers div:last-child:after{
+  content:"";
+  position:absolute;
+  left:-7px;
+  top:18%;
+  bottom:18%;
+  width:2px;
+  background:rgba(255,255,255,.30);
+}
+.fill-side-panel{
+  position:absolute;
+  right:3%;
+  top:8%;
+  width:18%;
+  height:78%;
+  border-radius:32px;
+  background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.14);
+}
+.fill-bottom-strip{
+  position:absolute;
+  left:4%;
+  right:4%;
+  bottom:3%;
+  height:14%;
+  border-radius:28px;
+  background:linear-gradient(90deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  border:1px solid rgba(255,255,255,.10);
+}
+.hero-modern-tags{
+  bottom:36px !important;
+  right:36px !important;
+  max-width:52% !important;
+}
+.hero-lines{
+  right:9% !important;
+  bottom:11% !important;
+  opacity:.12 !important;
+}
+@media (max-width:800px){
+  .fill-door{
+    right:4%;
+    top:13%;
+    width:42%;
+    height:56%;
+  }
+  .fill-vanity{
+    right:18%;
+    bottom:8%;
+    width:48%;
+    height:24%;
+  }
+  .fill-side-panel{
+    width:24%;
+    height:72%;
+  }
+}
+
+</style></head><body><header class="topbar"><div class="container nav"><div class="brand"><div class="logo"><div class="logo-mark"><span class="c">C</span><span class="line"></span><span class="m">M</span></div></div><div><h1>Çakir Mobilya</h1><small>Kütahya / Türkiye</small></div></div><div class="menu-wrap"><nav class="menu"><button class="menu-btn active" data-page="anasayfa">ANA SAYFA</button><button class="menu-btn" data-page="banyo">BANYO</button><button class="menu-btn" data-page="kapi">KAPI</button><button class="menu-btn" data-page="katalog">KATALOG</button><button class="menu-btn" data-page="iletisim">İLETİŞİM</button></nav></div></div></header><main>
+
+<section id="anasayfa" class="page active"><section class="section"><div class="container">
+  <div class="home-hero">
+  <div class="hero-fill-scene">
+    <div class="fill-side-panel"></div>
+    <div class="fill-door"></div>
+    <div class="fill-vanity">
+      <div class="fill-drawers"><div></div><div></div></div>
+    </div>
+    <div class="fill-bottom-strip"></div>
+  </div>
+  <div class="home-hero-inner">
+      <span class="home-eyebrow">Çakir Mobilya · Kütahya</span>
+      <h2>İç Kapı,<br>Dış Kapı ve<br>Banyo Mobilyası</h2>
+      <p>Modern çizgi, düzenli kategori yapısı ve güçlü ürün sunumu. Kapılar ve banyo dolapları tek bir sade vitrin içinde sunulur.</p>
+      <div class="home-actions">
+        <button class="home-btn primary go-page" data-page="kapi">Kapıları İncele</button>
+        <button class="home-btn go-page" data-page="banyo">Banyo Modelleri</button>
+      </div>
+    </div>
+    <div class="hero-modern-tags">
+      <span class="hero-modern-tag">İç Kapı</span>
+      <span class="hero-modern-tag">Dış Kapı</span>
+      <span class="hero-modern-tag">Banyo Dolabı</span>
+    </div>
+    <div class="hero-lines"></div>
   </div>
 
-  <script>
-    async function loadModels() {
-      const grid = document.getElementById("modelsGrid");
-      const res = await fetch("/api/models");
-      const data = await res.json();
-      const items = data.items || [];
-      if (!items.length) {
-        grid.innerHTML = '<div class="card"><div class="card-body"><h3>Henüz model yok</h3><p>Admin panelinden model ekleyebilirsiniz.</p></div></div>';
-        return;
-      }
-      grid.innerHTML = items.map(item => `
-        <article class="card">
-          ${item.image_url ? `<img src="${item.image_url}" alt="${item.title}">` : '<div style="height:220px;background:#eee"></div>'}
-          <div class="card-body">
-            <h3>${item.title}</h3>
-            <p>${item.description || ""}</p>
+  <div class="front-card" style="margin-top:20px;">
+    <h3>Koleksiyonlar</h3>
+    <p>İç kapılar, dış kapılar ve banyo dolapları düzenli kategori yapısıyla sunulur. İstediğiniz bölüme doğrudan geçebilirsiniz.</p>
+    <div class="quick-links">
+      <button class="quick-link go-page" data-page="kapi"><strong>İç Kapılar</strong><span>Evkap ve Biani serileri</span></button>
+      <button class="quick-link go-page" data-page="kapi"><strong>Dış Kapılar</strong><span>Emek dış kapı kategorileri</span></button>
+      <button class="quick-link go-page" data-page="banyo"><strong>Banyo Dolapları</strong><span>Biani banyo serileri</span></button>
+      <button class="quick-link go-page" data-page="iletisim"><strong>İletişim</strong><span>Telefon, e-posta ve adres alanı</span></button>
+    </div>
+  </div>
+</div></section></section>
+
+<section id="banyo" class="page"><section class="section"><div class="container"><div class="box"><h3>Biani Banyo Dolabı</h3><p>Banyo bölümü, Biani'nin resmi serilerine göre düzenlendi.</p></div><div class="simple-box"><h3>Banyo Serileri</h3><p>Seriyi seçerek kendi sayfasına girebilirsiniz.</p><div class="banyo-grid"><button class="banyo-link go-page" data-page="banyo-yali"><div class="banyo-box"><div class="banyo-top">Yalı</div><div class="banyo-title">YALI SERİSİ</div></div></button><button class="banyo-link go-page" data-page="banyo-elit"><div class="banyo-box"><div class="banyo-top">Elit</div><div class="banyo-title">ELİT SERİSİ</div></div></button><button class="banyo-link go-page" data-page="banyo-klas"><div class="banyo-box"><div class="banyo-top">Klas</div><div class="banyo-title">KLAS SERİSİ</div></div></button><button class="banyo-link go-page" data-page="banyo-form"><div class="banyo-box"><div class="banyo-top">Form</div><div class="banyo-title">FORM SERİSİ</div></div></button><button class="banyo-link go-page" data-page="banyo-form-mini"><div class="banyo-box"><div class="banyo-top">Mini</div><div class="banyo-title">FORM MİNİ SERİSİ</div></div></button><button class="banyo-link go-page" data-page="banyo-royal"><div class="banyo-box"><div class="banyo-top">Royal</div><div class="banyo-title">ROYAL SERİSİ</div></div></button></div></div></div></section></section><section id="kapi" class="page"><section class="section"><div class="container"><div class="box"><h3>KAPI FİRMALARI</h3><p>Firmayı seçin, ardından kategorilerine girin.</p></div><div class="tabs"><button class="subtab active" data-sub="ic">İç Kapılar</button><button class="subtab" data-sub="dis">Dış Kapılar</button></div><div id="ic" class="subcontent active"><div class="company-icons"><button class="company-icon-btn active" data-company="evkap"><div class="company-icon-logo"><img class="zoomable" src="https://www.google.com/s2/favicons?sz=128&domain_url=https://evkap.com.tr" alt="Evkap"></div><div class="company-icon-label">Evkap</div></button><button class="company-icon-btn" data-company="biani"><div class="company-icon-logo"><img class="zoomable" src="https://www.google.com/s2/favicons?sz=128&domain_url=https://biani.com" alt="Biani"></div><div class="company-icon-label">Biani</div></button></div><div id="evkap" class="company-panel active"><div class="simple-box"><h3>Evkap</h3><p>Resmi site kategorilerine göre düzenlendi.</p><div class="grid-cats"><button class="cat-link go-page" data-page="evkap-pvc"><div class="cat-box"><div class="cat-top">PVC</div><div class="cat-title">PVC Kapı</div></div></button><button class="cat-link go-page" data-page="evkap-melamin"><div class="cat-box"><div class="cat-top">Melamin</div><div class="cat-title">Melamin Kapı</div></div></button><button class="cat-link go-page" data-page="evkap-lake"><div class="cat-box"><div class="cat-top">Lake</div><div class="cat-title">Lake Kapı</div></div></button><button class="cat-link go-page" data-page="evkap-amerikan"><div class="cat-box"><div class="cat-top">Amerikan</div><div class="cat-title">Amerikan Kapı</div></div></button><button class="cat-link go-page" data-page="evkap-mdf"><div class="cat-box"><div class="cat-top">MDF</div><div class="cat-title">MDF Kapı</div></div></button><button class="cat-link go-page" data-page="evkap-ahsap"><div class="cat-box"><div class="cat-top">Ahşap</div><div class="cat-title">Ahşap Kapı</div></div></button><button class="cat-link go-page" data-page="evkap-laminat"><div class="cat-box"><div class="cat-top">Laminat</div><div class="cat-title">Laminat Kapı</div></div></button><button class="cat-link go-page" data-page="evkap-yangin"><div class="cat-box"><div class="cat-top">Yangın</div><div class="cat-title">Yangına Dayanıklı Kapı</div></div></button></div></div></div><div id="biani" class="company-panel"><div class="simple-box"><h3>Biani</h3><p>Biani'nin resmi kapı serileri.</p><div class="grid-cats"><button class="cat-link go-page" data-page="biani-clas"><div class="cat-box"><div class="cat-top">Clas</div><div class="cat-title">CLAS SERİSİ</div></div></button><button class="cat-link go-page" data-page="biani-terra"><div class="cat-box"><div class="cat-top">Terra</div><div class="cat-title">TERRA SERİSİ</div></div></button><button class="cat-link go-page" data-page="biani-balera"><div class="cat-box"><div class="cat-top">Balera</div><div class="cat-title">BALERA SERİSİ</div></div></button><button class="cat-link go-page" data-page="biani-duro"><div class="cat-box"><div class="cat-top">Duro</div><div class="cat-title">DURO SERİSİ</div></div></button><button class="cat-link go-page" data-page="biani-mirena"><div class="cat-box"><div class="cat-top">Mirena</div><div class="cat-title">MIRENA SERİSİ</div></div></button></div></div></div></div><div id="dis" class="subcontent"><div class="company-icons"><button class="company-icon-btn active" data-company-dis="emek"><div class="company-icon-logo"><img class="zoomable" src="https://www.google.com/s2/favicons?sz=128&domain_url=https://www.emekcelikkapi.com" alt="Emek"></div><div class="company-icon-label">Emek</div></button></div><div id="emek" class="company-panel active"><div class="simple-box"><h3>Emek Çelik Kapı</h3><p>Dış kapılar için resmi kategoriler.</p><div class="grid-cats"><button class="cat-link go-page" data-page="emek-exterior"><div class="cat-box"><div class="cat-top">Exterior</div><div class="cat-title">Exterior Doors</div></div></button><button class="cat-link go-page" data-page="emek-villa"><div class="cat-box"><div class="cat-top">Villa</div><div class="cat-title">Villa Doors</div></div></button><button class="cat-link go-page" data-page="emek-schueco"><div class="cat-box"><div class="cat-top">Schüco</div><div class="cat-title">Schüco Models</div></div></button><button class="cat-link go-page" data-page="emek-fire"><div class="cat-box"><div class="cat-top">Fire</div><div class="cat-title">Fire Exit</div></div></button></div></div></div></div></div></section></section>
+<section id="evkap-pvc" class="page"><section class="section"><div class="container">
+  <button class="back-btn go-page" data-page="kapi">← Evkap'a Geri Dön</button>
+
+  <div class="simple-box">
+    <div class="pvc-section-head">
+      <div>
+        <h3>Evkap - PVC Kapı</h3>
+        <p>PVC bölümü temiz ve düzenli şekilde yeniden sıralandı.</p>
+      </div>
+      <div class="pvc-count">Toplam ürün: 115</div>
+    </div>
+    <div class="pvc-hero-badges">
+      <span class="pvc-badge">PVC Kapı</span>
+      <span class="pvc-badge">EVKAP</span>
+      <span class="pvc-badge">İç Mekan</span>
+      <span class="pvc-badge">3 Parti Eklendi</span>
+    </div>
+  </div>
+
+  <div class="pvc-two" style="margin-top:18px;">
+    <div class="pvc-detail-box">
+      <h3 style="font-size:24px;">Kategori Özeti</h3>
+      <p>PVC kapılar neme dayanımı nedeniyle banyo, mutfak, tuvalet ve iç bölmelerde tercih edilir.</p>
+      <div class="pvc-chips" style="margin-top:10px;">
+        <span class="pvc-chip">Kanat: 36–40 mm</span>
+        <span class="pvc-chip">İç Dolgu: Petek / Panel</span>
+        <span class="pvc-chip">Kasa: PVC kasa sistemi</span>
+        <span class="pvc-chip">Yüzey: Düz / Desenli</span>
+      </div>
+    </div>
+    <div class="pvc-detail-box">
+      <h3 style="font-size:24px;">Teknik Örnek</h3>
+      <p><strong>PVC-174 Saten Beyaz</strong></p>
+      <p>36 mm MDF kasa, 42 mm kanat kalınlığı, 0.20 mm PVC kaplama ve 45x35 mm seren.</p>
+      <p style="margin-top:10px;"><strong>PVC-183 Saten Çöl Kumu</strong></p>
+      <p>Kraft petek iç dolgu ve güçlendirilmiş iç destek yapısıyla listelenir.</p>
+    </div>
+  </div>
+
+  <div class="simple-box" style="margin-top:18px;">
+    <h3 class="pvc-group-title">Model Kartları - İlk Parti</h3>
+    <div class="pvc-grid">
+      
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-181</div>
+          <div class="pvc-body">
+            <h4>PVC-181 Saten Krem</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
           </div>
         </article>
-      `).join("");
-    }
-    loadModels();
-  </script>
-</body>
-</html>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-126</div>
+          <div class="pvc-body">
+            <h4>PVC-126 Sanat Gri Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-126</div>
+          <div class="pvc-body">
+            <h4>PVC-126 Bute Beyaz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-126</div>
+          <div class="pvc-body">
+            <h4>PVC-126 Teak Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-184</div>
+          <div class="pvc-body">
+            <h4>PVC-184 Santana</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-126</div>
+          <div class="pvc-body">
+            <h4>PVC-126 Beyaz Freze Meşe Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-135</div>
+          <div class="pvc-body">
+            <h4>PVC-135 Teak Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-182</div>
+          <div class="pvc-body">
+            <h4>PVC-182 Sanat Gri</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-182</div>
+          <div class="pvc-body">
+            <h4>PVC-182 Bute Beyaz</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-184</div>
+          <div class="pvc-body">
+            <h4>PVC-184 Sanat Gri</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-184</div>
+          <div class="pvc-body">
+            <h4>PVC-184 Bute Beyaz PVC Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-185</div>
+          <div class="pvc-body">
+            <h4>PVC-185 Saten Kanyon Model Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-180</div>
+          <div class="pvc-body">
+            <h4>PVC-180 Saten Beyaz Antrasit Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-183</div>
+          <div class="pvc-body">
+            <h4>PVC-183 Sanat Gri</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-152</div>
+          <div class="pvc-body">
+            <h4>PVC-152 Lunar Krem Desen Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-152</div>
+          <div class="pvc-body">
+            <h4>PVC-152 Sanat Gri</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-152</div>
+          <div class="pvc-body">
+            <h4>PVC-152 Saten Çöl Kumu</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-162</div>
+          <div class="pvc-body">
+            <h4>PVC-162 Yatay Teak Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-162</div>
+          <div class="pvc-body">
+            <h4>PVC-162 Yatay Alpi Ceviz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-163</div>
+          <div class="pvc-body">
+            <h4>PVC-163 Santana Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+    </div>
+  </div>
+
+  <div class="simple-box" style="margin-top:18px;">
+    <h3 class="pvc-group-title">Model Kartları - İkinci Parti</h3>
+    <div class="pvc-grid">
+      
+        <article class="pvc-card">
+          <div class="pvc-visual">ELT-513</div>
+          <div class="pvc-body">
+            <h4>ELT-513 Bute Beyaz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-321</div>
+          <div class="pvc-body">
+            <h4>PVC-321 Rustik Arizona Cam Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-320</div>
+          <div class="pvc-body">
+            <h4>PVC-320 Rustik Arizona Cam Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">ELT-513</div>
+          <div class="pvc-body">
+            <h4>ELT-513 Çizgi Antrasit Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-132</div>
+          <div class="pvc-body">
+            <h4>PVC-132 Ozigo Beyaz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-131</div>
+          <div class="pvc-body">
+            <h4>PVC-131 Bosse Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-129</div>
+          <div class="pvc-body">
+            <h4>PVC-129 Gold Ceviz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-120</div>
+          <div class="pvc-body">
+            <h4>PVC-120 Beyaz Abanoz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-110</div>
+          <div class="pvc-body">
+            <h4>PVC-110 Bambu Beyaz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-102</div>
+          <div class="pvc-body">
+            <h4>PVC-102 Venge Beyaz Huş Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC</div>
+          <div class="pvc-body">
+            <h4>PVC RUSTIK-309 Beyaz Bambu Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC</div>
+          <div class="pvc-body">
+            <h4>PVC RUSTIK-303 Gold Ceviz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC</div>
+          <div class="pvc-body">
+            <h4>PVC RUSTIK-302 Gold Ceviz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC</div>
+          <div class="pvc-body">
+            <h4>PVC RUSTIK-301 Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC</div>
+          <div class="pvc-body">
+            <h4>PVC RUSTIK-301 Antrasit Gri Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-ELT510</div>
+          <div class="pvc-body">
+            <h4>PVC-ELT510 Natural Mozaik Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-ELT509</div>
+          <div class="pvc-body">
+            <h4>PVC-ELT509 Natural Arizona Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-ELT-508</div>
+          <div class="pvc-body">
+            <h4>PVC-ELT-508 Santana Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-156</div>
+          <div class="pvc-body">
+            <h4>PVC-156 İtalyan Ceviz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-156</div>
+          <div class="pvc-body">
+            <h4>PVC-156 İnci Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-179</div>
+          <div class="pvc-body">
+            <h4>PVC-179 Saten Çöl Kumu Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-175</div>
+          <div class="pvc-body">
+            <h4>PVC-175 Saten Beyaz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-172</div>
+          <div class="pvc-body">
+            <h4>PVC-172 İnci Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-171</div>
+          <div class="pvc-body">
+            <h4>PVC-171 Beyaz Huş Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-171</div>
+          <div class="pvc-body">
+            <h4>PVC-171 Bute Beyaz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-170</div>
+          <div class="pvc-body">
+            <h4>PVC-170 Beyaz Huş Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-170</div>
+          <div class="pvc-body">
+            <h4>PVC-170 Bute Beyaz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-168</div>
+          <div class="pvc-body">
+            <h4>PVC-168 Bute Beyaz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-167</div>
+          <div class="pvc-body">
+            <h4>PVC-167 İnci Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-166</div>
+          <div class="pvc-body">
+            <h4>PVC-166 Pearl İnci Rengi Rustik Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-155</div>
+          <div class="pvc-body">
+            <h4>PVC-155 Ozigo Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-155</div>
+          <div class="pvc-body">
+            <h4>PVC-155 İnci Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-154</div>
+          <div class="pvc-body">
+            <h4>PVC-154 Ozigo Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-152</div>
+          <div class="pvc-body">
+            <h4>PVC-152 Ozigo Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-149</div>
+          <div class="pvc-body">
+            <h4>PVC-149 Ozigo Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-140</div>
+          <div class="pvc-body">
+            <h4>PVC-140 Bute Beyaz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-139</div>
+          <div class="pvc-body">
+            <h4>PVC-139 Bute Beyaz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-134</div>
+          <div class="pvc-body">
+            <h4>PVC-134 Avola Krem Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-125</div>
+          <div class="pvc-body">
+            <h4>PVC-125 Bute Beyaz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-124</div>
+          <div class="pvc-body">
+            <h4>PVC-124 Bute Beyaz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-121</div>
+          <div class="pvc-body">
+            <h4>PVC-121 Bute Beyaz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-119</div>
+          <div class="pvc-body">
+            <h4>PVC-119 Bambu Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-117</div>
+          <div class="pvc-body">
+            <h4>PVC-117 Bute Beyaz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-116</div>
+          <div class="pvc-body">
+            <h4>PVC-116 Bute Beyaz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-116</div>
+          <div class="pvc-body">
+            <h4>PVC-116 Bambu Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-114</div>
+          <div class="pvc-body">
+            <h4>PVC-114 Teak Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-113</div>
+          <div class="pvc-body">
+            <h4>PVC-113 Beyaz Huş Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-112</div>
+          <div class="pvc-body">
+            <h4>PVC-112 Beyaz Huş Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-112</div>
+          <div class="pvc-body">
+            <h4>PVC-112 Bute Beyaz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-111</div>
+          <div class="pvc-body">
+            <h4>PVC-111 Bute Beyaz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-107</div>
+          <div class="pvc-body">
+            <h4>PVC-107 Bambu Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-106</div>
+          <div class="pvc-body">
+            <h4>PVC-106 Beyaz Huş Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-103</div>
+          <div class="pvc-body">
+            <h4>PVC-103 Bambu Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-101</div>
+          <div class="pvc-body">
+            <h4>PVC-101 Bute Beyaz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+    </div>
+  </div>
+
+  <div class="simple-box" style="margin-top:18px;">
+    <h3 class="pvc-group-title">Model Kartları - Üçüncü Parti</h3>
+    <div class="pvc-grid">
+      
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-105</div>
+          <div class="pvc-body">
+            <h4>PVC-105 Bute Beyaz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-104</div>
+          <div class="pvc-body">
+            <h4>PVC-104 Beyaz Huş Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-104</div>
+          <div class="pvc-body">
+            <h4>PVC-104 Bute Beyaz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-102</div>
+          <div class="pvc-body">
+            <h4>PVC-102 Bambu Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-101</div>
+          <div class="pvc-body">
+            <h4>PVC-101 Beyaz Huş Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-100</div>
+          <div class="pvc-body">
+            <h4>PVC-100 Bute Beyaz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-099</div>
+          <div class="pvc-body">
+            <h4>PVC-099 İnci Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-098</div>
+          <div class="pvc-body">
+            <h4>PVC-098 Sanat Gri Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-097</div>
+          <div class="pvc-body">
+            <h4>PVC-097 Saten Beyaz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-096</div>
+          <div class="pvc-body">
+            <h4>PVC-096 Antrasit Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-095</div>
+          <div class="pvc-body">
+            <h4>PVC-095 Krem Desen Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-094</div>
+          <div class="pvc-body">
+            <h4>PVC-094 Ozigo Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-093</div>
+          <div class="pvc-body">
+            <h4>PVC-093 Santana Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-092</div>
+          <div class="pvc-body">
+            <h4>PVC-092 Teak Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-091</div>
+          <div class="pvc-body">
+            <h4>PVC-091 Gold Ceviz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-090</div>
+          <div class="pvc-body">
+            <h4>PVC-090 Bambu Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-089</div>
+          <div class="pvc-body">
+            <h4>PVC-089 Beyaz Huş Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-088</div>
+          <div class="pvc-body">
+            <h4>PVC-088 Bute Beyaz Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-087</div>
+          <div class="pvc-body">
+            <h4>PVC-087 İnci Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-086</div>
+          <div class="pvc-body">
+            <h4>PVC-086 Avola Krem Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-085</div>
+          <div class="pvc-body">
+            <h4>PVC-085 Sanat Gri Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-084</div>
+          <div class="pvc-body">
+            <h4>PVC-084 Arizona Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-083</div>
+          <div class="pvc-body">
+            <h4>PVC-083 Natural Mozaik Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-082</div>
+          <div class="pvc-body">
+            <h4>PVC-082 Montana Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-081</div>
+          <div class="pvc-body">
+            <h4>PVC-081 Premium Bute Beyaz Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-080</div>
+          <div class="pvc-body">
+            <h4>PVC-080 Premium Antrasit Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-079</div>
+          <div class="pvc-body">
+            <h4>PVC-079 Premium Arizona Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-078</div>
+          <div class="pvc-body">
+            <h4>PVC-078 Premium Gold Ceviz Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-077</div>
+          <div class="pvc-body">
+            <h4>PVC-077 Premium Anka Meşe Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-076</div>
+          <div class="pvc-body">
+            <h4>PVC-076 Çizgili Antrasit Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-075</div>
+          <div class="pvc-body">
+            <h4>PVC-075 Bute Beyaz Gold Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+
+        <article class="pvc-card">
+          <div class="pvc-visual">PVC-074</div>
+          <div class="pvc-body">
+            <h4>PVC-074 Beyaz-Siyah Pvc Kapı</h4>
+            <div class="pvc-chips">
+              <span class="pvc-chip">PVC Kapı</span>
+              <span class="pvc-chip">EVKAP</span>
+              <span class="pvc-chip">İç Mekan</span>
+            </div>
+            <p class="pvc-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p>
+          </div>
+        </article>
+    </div>
+  </div>
+</div></section></section>
+<section id="evkap-melamin" class="page"><section class="section"><div class="container"><button class="back-btn go-page" data-page="kapi">← Evkap'a Geri Dön</button><div class="simple-box"><div class="pvc-section-head"><div><h3>Evkap - Melamin Kapı</h3><p>Melamin Kapı için ilk toplu parti eklendi.</p></div><div class="pvc-count">Toplam ürün: 35</div></div><div class="pvc-hero-badges"><span class="pvc-badge">Melamin Kapı</span><span class="pvc-badge">EVKAP</span><span class="pvc-badge">İç Mekan</span><span class="pvc-badge">İlk Batch: 20 model</span></div></div><div class="pvc-two" style="margin-top:18px;"><div class="pvc-detail-box"><h3 style="font-size:24px;">Kategori Özeti</h3><p>Melamin kapı, iç kapı modelleri arasında en çok renk çeşidine sahip seçeneklerden biridir. Çizilmeye dayanıklı, maliyet-etkin ve iç mekâna uygun yüzey sunar.</p><div class="pvc-chips" style="margin-top:10px;"><span class="pvc-chip">Toplam: 35 ürün</span><span class="pvc-chip">Yüzey: 110 GR melamin kaplama</span><span class="pvc-chip">Kanat: 42 mm</span><span class="pvc-chip">Kasa: 36 mm MDF</span></div></div><div class="pvc-detail-box"><h3 style="font-size:24px;">Teknik Örnek</h3><p><strong>Melamin 232 Kapı</strong></p><p>Kraft petek iç dolgu, 36 mm MDF kasa, 42 mm kanat kalınlığı ve 110 GR melamin kaplama bilgisi ürün sayfasında yer alır.</p><p style="margin-top:10px;"><strong>MELAMIN-234 Kapı</strong></p><p>Aynı teknik yapı ile 4 mm MDF yüzey, 42 mm kanat ve 45x35 mm seren bilgisi yer alır.</p></div></div><div class="simple-box" style="margin-top:18px;"><h3 class="pvc-group-title">Model Kartları - İlk Batch</h3><div class="mel-grid"><article class="mel-card"><div class="mel-visual">Melamin</div><div class="mel-body"><h4>Melamin 232 Kapı</h4><div class="mel-chips"><span class="mel-chip">Melamin Kapı</span><span class="mel-chip">EVKAP</span><span class="mel-chip">İç Mekan</span></div><p class="mel-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p></div></article><article class="mel-card"><div class="mel-visual">205</div><div class="mel-body"><h4>205 Zeytin Camlı Melamin Kapı</h4><div class="mel-chips"><span class="mel-chip">Melamin Kapı</span><span class="mel-chip">EVKAP</span><span class="mel-chip">İç Mekan</span></div><p class="mel-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p></div></article><article class="mel-card"><div class="mel-visual">Melamin-201</div><div class="mel-body"><h4>Melamin-201 Bambu Camlı Kapı</h4><div class="mel-chips"><span class="mel-chip">Melamin Kapı</span><span class="mel-chip">EVKAP</span><span class="mel-chip">İç Mekan</span></div><p class="mel-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p></div></article><article class="mel-card"><div class="mel-visual">Melamin</div><div class="mel-body"><h4>Melamin Rustik 407 Yeni Meşe Kapı</h4><div class="mel-chips"><span class="mel-chip">Melamin Kapı</span><span class="mel-chip">EVKAP</span><span class="mel-chip">İç Mekan</span></div><p class="mel-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p></div></article><article class="mel-card"><div class="mel-visual">Rustik-401</div><div class="mel-body"><h4>Rustik-401 Beyaz Varak Melamin Kapı</h4><div class="mel-chips"><span class="mel-chip">Melamin Kapı</span><span class="mel-chip">EVKAP</span><span class="mel-chip">İç Mekan</span></div><p class="mel-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p></div></article><article class="mel-card"><div class="mel-visual">MELAMIN-234</div><div class="mel-body"><h4>MELAMIN-234 Kapı</h4><div class="mel-chips"><span class="mel-chip">Melamin Kapı</span><span class="mel-chip">EVKAP</span><span class="mel-chip">İç Mekan</span></div><p class="mel-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p></div></article><article class="mel-card"><div class="mel-visual">MELAMIN-234</div><div class="mel-body"><h4>MELAMIN-234 Boy Camlı Kapı</h4><div class="mel-chips"><span class="mel-chip">Melamin Kapı</span><span class="mel-chip">EVKAP</span><span class="mel-chip">İç Mekan</span></div><p class="mel-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p></div></article><article class="mel-card"><div class="mel-visual">MELAMIN-233</div><div class="mel-body"><h4>MELAMIN-233 Kapı</h4><div class="mel-chips"><span class="mel-chip">Melamin Kapı</span><span class="mel-chip">EVKAP</span><span class="mel-chip">İç Mekan</span></div><p class="mel-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p></div></article><article class="mel-card"><div class="mel-visual">MELAMIN-217</div><div class="mel-body"><h4>MELAMIN-217 Likya Kapı</h4><div class="mel-chips"><span class="mel-chip">Melamin Kapı</span><span class="mel-chip">EVKAP</span><span class="mel-chip">İç Mekan</span></div><p class="mel-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p></div></article><article class="mel-card"><div class="mel-visual">Rustik-409</div><div class="mel-body"><h4>Rustik-409 Urartu Melamin Kapı</h4><div class="mel-chips"><span class="mel-chip">Melamin Kapı</span><span class="mel-chip">EVKAP</span><span class="mel-chip">İç Mekan</span></div><p class="mel-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p></div></article><article class="mel-card"><div class="mel-visual">Rustik-406</div><div class="mel-body"><h4>Rustik-406 Yeni Meşe Melamin Kapı</h4><div class="mel-chips"><span class="mel-chip">Melamin Kapı</span><span class="mel-chip">EVKAP</span><span class="mel-chip">İç Mekan</span></div><p class="mel-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p></div></article><article class="mel-card"><div class="mel-visual">Rustik-404</div><div class="mel-body"><h4>Rustik-404 Beyaz Melamin Kapı</h4><div class="mel-chips"><span class="mel-chip">Melamin Kapı</span><span class="mel-chip">EVKAP</span><span class="mel-chip">İç Mekan</span></div><p class="mel-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p></div></article><article class="mel-card"><div class="mel-visual">Rustik-404</div><div class="mel-body"><h4>Rustik-404 Beyaz Varak Melamin Kapı</h4><div class="mel-chips"><span class="mel-chip">Melamin Kapı</span><span class="mel-chip">EVKAP</span><span class="mel-chip">İç Mekan</span></div><p class="mel-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p></div></article><article class="mel-card"><div class="mel-visual">Rustik-403</div><div class="mel-body"><h4>Rustik-403 Beyaz Melamin Kapı</h4><div class="mel-chips"><span class="mel-chip">Melamin Kapı</span><span class="mel-chip">EVKAP</span><span class="mel-chip">İç Mekan</span></div><p class="mel-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p></div></article><article class="mel-card"><div class="mel-visual">Rustik-402</div><div class="mel-body"><h4>Rustik-402 Beyaz Melamin Kapı</h4><div class="mel-chips"><span class="mel-chip">Melamin Kapı</span><span class="mel-chip">EVKAP</span><span class="mel-chip">İç Mekan</span></div><p class="mel-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p></div></article><article class="mel-card"><div class="mel-visual">MELAMIN-227</div><div class="mel-body"><h4>MELAMIN-227 Likya Melamin Kapı</h4><div class="mel-chips"><span class="mel-chip">Melamin Kapı</span><span class="mel-chip">EVKAP</span><span class="mel-chip">İç Mekan</span></div><p class="mel-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p></div></article><article class="mel-card"><div class="mel-visual">227</div><div class="mel-body"><h4>227 Antrasit Beyaz Melamin Kapı</h4><div class="mel-chips"><span class="mel-chip">Melamin Kapı</span><span class="mel-chip">EVKAP</span><span class="mel-chip">İç Mekan</span></div><p class="mel-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p></div></article><article class="mel-card"><div class="mel-visual">226</div><div class="mel-body"><h4>226 Beyaz Bambu Melamin Kapı</h4><div class="mel-chips"><span class="mel-chip">Melamin Kapı</span><span class="mel-chip">EVKAP</span><span class="mel-chip">İç Mekan</span></div><p class="mel-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p></div></article><article class="mel-card"><div class="mel-visual">225</div><div class="mel-body"><h4>225 Beyaz Bambu Melamin Kapı</h4><div class="mel-chips"><span class="mel-chip">Melamin Kapı</span><span class="mel-chip">EVKAP</span><span class="mel-chip">İç Mekan</span></div><p class="mel-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p></div></article><article class="mel-card"><div class="mel-visual">223</div><div class="mel-body"><h4>223 Beyaz Zeytin Melamin Kapı</h4><div class="mel-chips"><span class="mel-chip">Melamin Kapı</span><span class="mel-chip">EVKAP</span><span class="mel-chip">İç Mekan</span></div><p class="mel-muted" style="margin-top:10px;">Resmi kategori içinden alınan model adı.</p></div></article></div></div></div></section></section><section id="evkap-lake" class="page"><section class="section"><div class="container"><button class="back-btn go-page" data-page="kapi">← Evkap'a Geri Dön</button><div class="simple-box"><h3>Evkap - Lake Kapı</h3><p>Lake kapılar; daha pürüzsüz yüzey, modern görünüm ve dekoratif çizgi isteyen iç mekanlar için öne çıkar.</p><div class="pvc-chips" style="margin-top:12px;"><span class="pvc-chip">Lake Yüzey</span><span class="pvc-chip">Modern Tasarım</span><span class="pvc-chip">İç Mekan</span><span class="pvc-chip">EVKAP</span></div><div class="mel-grid" style="margin-top:18px;"><article class="mel-card"><div class="mel-visual">Lake</div><div class="mel-body"><h4>Düz Lake Seri</h4><p class="mel-muted">Minimal çizgili, temiz ve modern mekanlar için sade görünüm.</p></div></article><article class="mel-card"><div class="mel-visual">Camlı</div><div class="mel-body"><h4>Cam Detaylı Lake</h4><p class="mel-muted">Koridor, salon ve ofis geçişlerinde daha ferah görünüm sağlar.</p></div></article><article class="mel-card"><div class="mel-visual">Çıtalı</div><div class="mel-body"><h4>Çıtalı Lake</h4><p class="mel-muted">Klasik ve modern çizgiyi birleştiren dekoratif yüzey seçeneği.</p></div></article><article class="mel-card"><div class="mel-visual">Özel</div><div class="mel-body"><h4>Proje Uyumlu Lake</h4><p class="mel-muted">Mağaza ve proje işlerinde ölçüye ve stile göre seçilebilir.</p></div></article></div></div></div></section></section><section id="evkap-amerikan" class="page"><section class="section"><div class="container"><button class="back-btn go-page" data-page="kapi">← Evkap'a Geri Dön</button><div class="simple-box"><h3>Evkap - Amerikan Kapı</h3><p>Amerikan kapılar; ekonomik çözüm, klasik kullanım ve yaygın iç mekan tercihi için düzenlendi.</p><div class="pvc-chips" style="margin-top:12px;"><span class="pvc-chip">Amerikan Kapı</span><span class="pvc-chip">Ekonomik Seri</span><span class="pvc-chip">İç Mekan</span><span class="pvc-chip">EVKAP</span></div><div class="mel-grid" style="margin-top:18px;"><article class="mel-card"><div class="mel-visual">Panel</div><div class="mel-body"><h4>Panel Amerikan</h4><p class="mel-muted">Standart konut kullanımı için pratik ve dengeli seçenek.</p></div></article><article class="mel-card"><div class="mel-visual">Camlı</div><div class="mel-body"><h4>Camlı Amerikan</h4><p class="mel-muted">Işık alan geçiş alanlarında tercih edilen klasik model grubu.</p></div></article><article class="mel-card"><div class="mel-visual">Desen</div><div class="mel-body"><h4>Desenli Amerikan</h4><p class="mel-muted">Kapı yüzeyinde daha hareketli ve dekoratif çizgi sunar.</p></div></article><article class="mel-card"><div class="mel-visual">Proje</div><div class="mel-body"><h4>Toplu İş Serisi</h4><p class="mel-muted">Bina, daire ve toplu proje işlerinde uygun ürün grubu.</p></div></article></div></div></div></section></section><section id="evkap-mdf" class="page"><section class="section"><div class="container"><button class="back-btn go-page" data-page="kapi">← Evkap'a Geri Dön</button><div class="simple-box"><h3>Evkap - MDF Kapı</h3><p>MDF kapılar; dengeli gövde yapısı ve farklı yüzey uygulamalarına uygunluğu ile güçlü bir iç mekan grubudur.</p><div class="pvc-chips" style="margin-top:12px;"><span class="pvc-chip">MDF Gövde</span><span class="pvc-chip">Dengeli Yapı</span><span class="pvc-chip">İç Mekan</span><span class="pvc-chip">EVKAP</span></div><div class="mel-grid" style="margin-top:18px;"><article class="mel-card"><div class="mel-visual">MDF</div><div class="mel-body"><h4>Düz Yüzey MDF</h4><p class="mel-muted">Sade çizgi isteyen projeler için temiz yüzeyli çözüm.</p></div></article><article class="mel-card"><div class="mel-visual">Oyma</div><div class="mel-body"><h4>Desenli MDF</h4><p class="mel-muted">Yüzeyde işleme ve kanal detayları ile daha hareketli görünüm.</p></div></article><article class="mel-card"><div class="mel-visual">Cam</div><div class="mel-body"><h4>Camlı MDF</h4><p class="mel-muted">Mutfak, ofis ve iç geçişlerde ferahlık sağlayan varyasyon.</p></div></article><article class="mel-card"><div class="mel-visual">Özel</div><div class="mel-body"><h4>Özel Ölçü Uyumlu</h4><p class="mel-muted">Projeye göre seri seçimi için uygun ürün grubu.</p></div></article></div></div></div></section></section><section id="evkap-ahsap" class="page"><section class="section"><div class="container"><button class="back-btn go-page" data-page="kapi">← Evkap'a Geri Dön</button><div class="simple-box"><h3>Evkap - Ahşap Kapı</h3><p>Ahşap kapılar; doğal doku, sıcak görünüm ve daha klasik dekor anlayışı için ayrıldı.</p><div class="pvc-chips" style="margin-top:12px;"><span class="pvc-chip">Doğal Doku</span><span class="pvc-chip">Klasik Stil</span><span class="pvc-chip">İç Mekan</span><span class="pvc-chip">EVKAP</span></div><div class="mel-grid" style="margin-top:18px;"><article class="mel-card"><div class="mel-visual">Meşe</div><div class="mel-body"><h4>Doğal Görünümlü Seri</h4><p class="mel-muted">Mekanda sıcak ve doğal bir his oluşturan ürün grubu.</p></div></article><article class="mel-card"><div class="mel-visual">Rustik</div><div class="mel-body"><h4>Rustik Ahşap</h4><p class="mel-muted">Klasik ve country tarzına yakın dekorlarda dikkat çeker.</p></div></article><article class="mel-card"><div class="mel-visual">Camlı</div><div class="mel-body"><h4>Camlı Ahşap</h4><p class="mel-muted">Görsellik ve ışık geçişini bir araya getiren seçenek.</p></div></article><article class="mel-card"><div class="mel-visual">Özel</div><div class="mel-body"><h4>Projeye Uygun Ahşap</h4><p class="mel-muted">İç tasarım diliyle uyumlu seri seçimi için ayrıldı.</p></div></article></div></div></div></section></section><section id="evkap-laminat" class="page"><section class="section"><div class="container"><button class="back-btn go-page" data-page="kapi">← Evkap'a Geri Dön</button><div class="simple-box"><h3>Evkap - Laminat Kapı</h3><p>Laminat kapılar; yoğun kullanım alanlarında dayanıklı yüzey ve temiz görünüm isteyen mekanlara uygundur.</p><div class="pvc-chips" style="margin-top:12px;"><span class="pvc-chip">Laminat Yüzey</span><span class="pvc-chip">Dayanıklı Kullanım</span><span class="pvc-chip">İç Mekan</span><span class="pvc-chip">EVKAP</span></div><div class="mel-grid" style="margin-top:18px;"><article class="mel-card"><div class="mel-visual">Düz</div><div class="mel-body"><h4>Standart Laminat</h4><p class="mel-muted">Ofis, daire ve yoğun geçiş alanlarına uygun sade seri.</p></div></article><article class="mel-card"><div class="mel-visual">Çizgi</div><div class="mel-body"><h4>Çizgili Laminat</h4><p class="mel-muted">Modern çizgi ile sade yüzeyi birleştiren model yapısı.</p></div></article><article class="mel-card"><div class="mel-visual">Wood</div><div class="mel-body"><h4>Ahşap Dokulu Laminat</h4><p class="mel-muted">Ahşap görünümü isteyen ama kolay kullanım arayanlar için.</p></div></article><article class="mel-card"><div class="mel-visual">Proje</div><div class="mel-body"><h4>Proje Serisi</h4><p class="mel-muted">Toplu işlerde seri uyumu ve farklı renk devamlılığı sağlar.</p></div></article></div></div></div></section></section><section id="evkap-yangin" class="page"><section class="section"><div class="container"><button class="back-btn go-page" data-page="kapi">← Evkap'a Geri Dön</button><div class="simple-box"><h3>Evkap - Yangına Dayanıklı Kapı</h3><p>Yangına dayanıklı kapı bölümü; güvenlik odaklı kullanım alanları için ayrıldı ve ürün grubu özet halinde düzenlendi.</p><div class="pvc-chips" style="margin-top:12px;"><span class="pvc-chip">Yangın Kapısı</span><span class="pvc-chip">Güvenlik</span><span class="pvc-chip">Proje Uyumlu</span><span class="pvc-chip">EVKAP</span></div><div class="mel-grid" style="margin-top:18px;"><article class="mel-card"><div class="mel-visual">60 DK</div><div class="mel-body"><h4>Standart Güvenlik Seri</h4><p class="mel-muted">Apartman, koridor ve geçiş alanları için düşünülen kapı grubu.</p></div></article><article class="mel-card"><div class="mel-visual">90 DK</div><div class="mel-body"><h4>Yüksek Dayanım Seri</h4><p class="mel-muted">Daha yüksek güvenlik beklentisi olan proje alanları için.</p></div></article><article class="mel-card"><div class="mel-visual">Tek</div><div class="mel-body"><h4>Tek Kanat Seçenek</h4><p class="mel-muted">Standart giriş ve servis kapısı çözümlerinde kullanılabilir.</p></div></article><article class="mel-card"><div class="mel-visual">Çift</div><div class="mel-body"><h4>Çift Kanat Seçenek</h4><p class="mel-muted">Daha geniş çıkış ve geçiş gerektiren alanlarda tercih edilir.</p></div></article></div></div></div></section></section><section id="biani-clas" class="page"><section class="section"><div class="container"><button class="back-btn go-page" data-page="kapi">← Biani'ye Geri Dön</button><div class="simple-box"><h3>Biani - CLAS SERİSİ</h3><p>Modeller: Dante, Linea, Verde, Castello, Flor, Casa.</p><div class="biani-model-card"><img class="zoomable" src="https://www.biani.com/img/seri/kapi/clas-vita.jpg" alt="Dante"><div class="biani-model-body"><h4>Dante</h4><p>Bu seri için öne çıkan örnek model.</p></div></div></div></div></section></section><section id="biani-terra" class="page"><section class="section"><div class="container"><button class="back-btn go-page" data-page="kapi">← Biani'ye Geri Dön</button><div class="simple-box"><h3>Biani - TERRA SERİSİ</h3><p>Modeller: Lilyum, Frezya, Roca, Aqua, Vento.</p><div class="biani-model-card"><img class="zoomable" src="https://www.biani.com/img/seri/kapi/terra-terra.jpg" alt="Lilyum"><div class="biani-model-body"><h4>Lilyum</h4><p>Bu seri için öne çıkan örnek model.</p></div></div></div></div></section></section><section id="biani-balera" class="page"><section class="section"><div class="container"><button class="back-btn go-page" data-page="kapi">← Biani'ye Geri Dön</button><div class="simple-box"><h3>Biani - BALERA SERİSİ</h3><p>Modeller: Sole, Mito, Agata.</p><div class="biani-model-card"><img class="zoomable" src="https://www.biani.com/img/seri/kapi/balera-balera.jpg" alt="Sole"><div class="biani-model-body"><h4>Sole</h4><p>Bu seri için öne çıkan örnek model.</p></div></div></div></div></section></section><section id="biani-duro" class="page"><section class="section"><div class="container"><button class="back-btn go-page" data-page="kapi">← Biani'ye Geri Dön</button><div class="simple-box"><h3>Biani - DURO SERİSİ</h3><p>Modeller: Porto, Lito.</p><div class="biani-model-card"><img class="zoomable" src="https://www.biani.com/img/seri/kapi/duro-duro.jpg" alt="Porto"><div class="biani-model-body"><h4>Porto</h4><p>Bu seri için öne çıkan örnek model.</p></div></div></div></div></section></section><section id="biani-mirena" class="page"><section class="section"><div class="container"><button class="back-btn go-page" data-page="kapi">← Biani'ye Geri Dön</button><div class="simple-box"><h3>Biani - MIRENA SERİSİ</h3><p>Modeller: Ola, Orbe, Delfin, Rain.</p><div class="biani-model-card"><img class="zoomable" src="https://www.biani.com/img/seri/kapi/mirena-mirena.jpg" alt="Ola"><div class="biani-model-body"><h4>Ola</h4><p>Bu seri için öne çıkan örnek model.</p></div></div></div></div></section></section><section id="emek-exterior" class="page"><section class="section"><div class="container"><button class="back-btn go-page" data-page="kapi">← Emek'e Geri Dön</button><div class="simple-box"><h3>Emek - Exterior Doors</h3><p>Dış giriş kapıları için modern çizgi, güçlü görünüm ve bina cephesi uyumu odaklı bir vitrin hazırlandı.</p><div class="series-list"><span class="series-pill">Modern</span><span class="series-pill">Klasik</span><span class="series-pill">Kompozit</span><span class="series-pill">Çelik</span><span class="series-pill">Dış Mekan</span></div><div class="emek-model-card"><img class="zoomable" src="https://www.google.com/s2/favicons?sz=256&domain_url=https://www.emekcelikkapi.com" alt="Exterior Model"><div class="emek-model-body"><h4>Exterior Collection</h4><p>Apartman ve müstakil yapı girişlerinde güçlü ilk izlenim oluşturan model grubu.</p></div></div></div></div></section></section><section id="emek-villa" class="page"><section class="section"><div class="container"><button class="back-btn go-page" data-page="kapi">← Emek'e Geri Dön</button><div class="simple-box"><h3>Emek - Villa Doors</h3><p>Villa grubu; prestijli giriş, özel tasarım görünümü ve daha dekoratif dış cephe uyumu için ayrıldı.</p><div class="series-list"><span class="series-pill">Villa Seri</span><span class="series-pill">Özel Giriş</span><span class="series-pill">Dekoratif Panel</span><span class="series-pill">Premium</span></div><div class="emek-model-card"><img class="zoomable" src="https://www.google.com/s2/favicons?sz=256&domain_url=https://www.emekcelikkapi.com" alt="V-013"><div class="emek-model-body"><h4>Villa Collection</h4><p>Özel ev ve villa girişleri için daha iddialı tasarım çizgisine sahip ürün grubu.</p></div></div></div></div></section></section><section id="emek-schueco" class="page"><section class="section"><div class="container"><button class="back-btn go-page" data-page="kapi">← Emek'e Geri Dön</button><div class="simple-box"><h3>Emek - Schüco Models</h3><p>Schüco uyumlu çizgi; modern cephe dili ve sade detaylı dış kapı görünümü isteyenler için hazırlandı.</p><div class="series-list"><span class="series-pill">Minimal</span><span class="series-pill">Modern</span><span class="series-pill">Cephe Uyumlu</span><span class="series-pill">Dış Mekan</span></div><div class="emek-model-card"><img class="zoomable" src="https://www.google.com/s2/favicons?sz=256&domain_url=https://www.emekcelikkapi.com" alt="Schüco Model"><div class="emek-model-body"><h4>Schüco Inspired Series</h4><p>Düz yüzeyli, modern ve net hatlara sahip giriş kapısı grubunu öne çıkarır.</p></div></div></div></div></section></section><section id="emek-fire" class="page"><section class="section"><div class="container"><button class="back-btn go-page" data-page="kapi">← Emek'e Geri Dön</button><div class="simple-box"><h3>Emek - Fire Exit</h3><p>Yangın çıkış kapıları için güvenlik ve proje odaklı ayrı bir sunum hazırlandı.</p><div class="series-list"><span class="series-pill">Fire Exit</span><span class="series-pill">Güvenlik</span><span class="series-pill">Proje Kapısı</span><span class="series-pill">Dış / Ortak Alan</span></div><div class="emek-model-card"><img class="zoomable" src="https://www.google.com/s2/favicons?sz=256&domain_url=https://www.emekcelikkapi.com" alt="Y-012"><div class="emek-model-body"><h4>Fire Exit Collection</h4><p>Güvenlik çıkışı, servis alanı ve ortak kullanım bölgeleri için ayrılmış kapı grubu.</p></div></div></div></div></section></section><section id="banyo-yali" class="page"><section class="section"><div class="container"><button class="back-btn go-page" data-page="banyo">← Banyo'ya Geri Dön</button><div class="simple-box"><h3>Biani - YALI SERİSİ</h3><p>Bu serinin resmi Biani modelleri.</p><div class="series-list"><span class="series-pill">Kartal</span><span class="series-pill">Sarıyer</span><span class="series-pill">Bebek</span><span class="series-pill">Cosmos</span><span class="series-pill">Nile</span><span class="series-pill">Hünkar</span><span class="series-pill">Pera</span><span class="series-pill">Huber</span><span class="series-pill">Hero</span><span class="series-pill">Moda</span><span class="series-pill">Beykoz</span></div><div class="banyo-model-card"><img class="zoomable" src="https://biani.com/img/seri/banyo/yali-yali.jpg" alt="Kartal"><div class="banyo-model-body"><h4>Kartal</h4><p>Bu seri için öne çıkan örnek model.</p></div></div></div></div></section></section><section id="banyo-elit" class="page"><section class="section"><div class="container"><button class="back-btn go-page" data-page="banyo">← Banyo'ya Geri Dön</button><div class="simple-box"><h3>Biani - ELİT SERİSİ</h3><p>Bu serinin resmi Biani modelleri.</p><div class="series-list"><span class="series-pill">Apolyont</span><span class="series-pill">Apolyont Slim</span><span class="series-pill">Nicea</span><span class="series-pill">Nicea Slim</span><span class="series-pill">Nicea Mini</span><span class="series-pill">Nicea Laundry</span><span class="series-pill">Tondo</span><span class="series-pill">Tino</span><span class="series-pill">Katia</span><span class="series-pill">Nevada</span><span class="series-pill">Poyraz</span><span class="series-pill">Ludo</span></div><div class="banyo-model-card"><img class="zoomable" src="https://biani.com/img/seri/banyo/elit-elit.jpg" alt="Apolyont"><div class="banyo-model-body"><h4>Apolyont</h4><p>Bu seri için öne çıkan örnek model.</p></div></div></div></div></section></section><section id="banyo-klas" class="page"><section class="section"><div class="container"><button class="back-btn go-page" data-page="banyo">← Banyo'ya Geri Dön</button><div class="simple-box"><h3>Biani - KLAS SERİSİ</h3><p>Bu serinin resmi Biani modelleri.</p><div class="series-list"><span class="series-pill">Rain</span><span class="series-pill">Lilyum</span><span class="series-pill">Ayda</span><span class="series-pill">York</span><span class="series-pill">Rado</span></div><div class="banyo-model-card"><img class="zoomable" src="https://biani.com/img/seri/banyo/klas-klas.jpg" alt="Rain"><div class="banyo-model-body"><h4>Rain</h4><p>Bu seri için öne çıkan örnek model.</p></div></div></div></div></section></section><section id="banyo-form" class="page"><section class="section"><div class="container"><button class="back-btn go-page" data-page="banyo">← Banyo'ya Geri Dön</button><div class="simple-box"><h3>Biani - FORM SERİSİ</h3><p>Bu serinin resmi Biani modelleri.</p><div class="series-list"><span class="series-pill">Dikili</span><span class="series-pill">Belek</span><span class="series-pill">Dalyan</span><span class="series-pill">Tome</span><span class="series-pill">Milas</span><span class="series-pill">Kaş</span><span class="series-pill">Kaş Laundry</span><span class="series-pill">Foça</span><span class="series-pill">Didim</span><span class="series-pill">Söke</span><span class="series-pill">Cunda</span><span class="series-pill">Lapse</span><span class="series-pill">Maya</span><span class="series-pill">Atlas</span><span class="series-pill">Fethiye</span><span class="series-pill">Konak</span><span class="series-pill">Bodrum</span><span class="series-pill">Buca</span><span class="series-pill">Edremit</span></div><div class="banyo-model-card"><img class="zoomable" src="https://biani.com/img/seri/banyo/form-form.jpg" alt="Dikili"><div class="banyo-model-body"><h4>Dikili</h4><p>Bu seri için öne çıkan örnek model.</p></div></div></div></div></section></section><section id="banyo-form-mini" class="page"><section class="section"><div class="container"><button class="back-btn go-page" data-page="banyo">← Banyo'ya Geri Dön</button><div class="simple-box"><h3>Biani - FORM MİNİ SERİSİ</h3><p>Bu serinin resmi Biani modelleri.</p><div class="series-list"><span class="series-pill">Minibox</span><span class="series-pill">Maxibox</span><span class="series-pill">Midila</span></div><div class="banyo-model-card"><img class="zoomable" src="https://www.biani.com/img/seri/banyo/form-mini-form-mini.jpg" alt="Minibox"><div class="banyo-model-body"><h4>Minibox</h4><p>Bu seri için öne çıkan örnek model.</p></div></div></div></div></section></section><section id="banyo-royal" class="page"><section class="section"><div class="container"><button class="back-btn go-page" data-page="banyo">← Banyo'ya Geri Dön</button><div class="simple-box"><h3>Biani - ROYAL SERİSİ</h3><p>Bu serinin resmi Biani modelleri.</p><div class="series-list"><span class="series-pill">Doğa</span><span class="series-pill">Zero</span><span class="series-pill">Erva</span></div><div class="banyo-model-card"><img class="zoomable" src="https://www.biani.com/img/seri/banyo/royal-serisi-royal.jpg" alt="Doğa"><div class="banyo-model-body"><h4>Doğa</h4><p>Bu seri için öne çıkan örnek model.</p></div></div></div></div></section></section><section id="katalog" class="page"><section class="section"><div class="container"><div class="simple-box"><h3>Katalog</h3><p>Çakir Mobilya vitrininde yer alan ana ürün grupları bu sayfada özet şekilde toplandı.</p><div class="quick-links" style="margin-top:18px;"><button class="quick-link go-page" data-page="banyo"><strong>Banyo Dolapları</strong><span>Biani banyo serilerine hızlı geçiş</span></button><button class="quick-link go-page" data-page="kapi"><strong>Kapı Koleksiyonu</strong><span>İç ve dış kapı firmaları ile kategori seçimi</span></button><button class="quick-link go-page" data-page="evkap-pvc"><strong>PVC Kapılar</strong><span>Evkap PVC kategorisindeki geniş model alanı</span></button><button class="quick-link go-page" data-page="evkap-melamin"><strong>Melamin Kapılar</strong><span>Melamin seri özetleri ve örnek kartlar</span></button></div></div><div class="front-grid"><div class="front-card"><h3>Öne Çıkan Ürün Grupları</h3><p>Banyo, iç kapı ve dış kapı bölümleri ayrı ayrı düzenlenmiş olup showroom sunumu için daha okunur bir katalog akışı hazırlandı.</p><div class="series-list" style="margin-top:16px;"><span class="series-pill">Biani Banyo</span><span class="series-pill">Evkap PVC</span><span class="series-pill">Evkap Melamin</span><span class="series-pill">Lake</span><span class="series-pill">Amerikan</span><span class="series-pill">MDF</span><span class="series-pill">Ahşap</span><span class="series-pill">Laminat</span><span class="series-pill">Yangın</span><span class="series-pill">Emek Çelik Kapı</span></div></div><div class="front-card"><h3>Katalog Kullanımı</h3><p>Müşteriye ürün gösterirken önce ana kategoriye girip, ardından seri veya ürün grubuna geçebilirsiniz. Böylece sitede dolaşım daha düzenli olur.</p><div class="pvc-chips" style="margin-top:16px;"><span class="pvc-chip">Hızlı Sunum</span><span class="pvc-chip">Kategori Bazlı</span><span class="pvc-chip">Mobil Uyumlu</span><span class="pvc-chip">Showroom İçin Uygun</span></div></div></div></div></section></section><section id="iletisim" class="page"><section class="section"><div class="container"><div class="simple-box"><h3>İletişim</h3><p>Çakir Mobilya ile ürün grupları, seri seçimi ve mağaza sunumu hakkında iletişime geçmek için bu sayfa düzenlendi.</p><div class="front-grid" style="margin-top:18px;"><div class="front-card"><h3>Mağaza Bilgisi</h3><p><strong>Konum:</strong> Kütahya / Türkiye</p><p style="margin-top:10px;"><strong>Telefon:</strong> İletişim numarası eklenecek</p><p style="margin-top:10px;"><strong>E-posta:</strong> Mail adresi eklenecek</p><p style="margin-top:10px;">Telefon ve mail alanları hazır bırakıldı; gerçek bilgiler eklendiğinde sayfa tamamlanmış olur.</p></div><div class="front-card"><h3>Ziyaret ve Ürün İncelemesi</h3><p>Müşteriler banyo dolapları, iç kapılar ve dış kapı grupları için mağazada kategori bazlı inceleme yapabilir. Web sayfası ön sunum, mağaza ise detaylı seçim alanı olarak kullanılabilir.</p><div class="series-list" style="margin-top:16px;"><span class="series-pill">Banyo Dolapları</span><span class="series-pill">İç Kapılar</span><span class="series-pill">Dış Kapılar</span><span class="series-pill">Showroom Sunumu</span></div></div></div></div></div></section></section></main><footer class="footer"><div class="container"><div class="footer-grid"><div><h3>ADRES</h3><p>Kütahya / Türkiye</p><p style="margin-top:10px">Telefon: İletişim numarası eklenecek</p><p style="margin-top:6px">Mail: Mail adresi eklenecek</p><p style="margin-top:10px">Kapı ve banyo ürün grupları için showroom sunumuna uygun vitrin sayfası.</p></div><div><h3>MENÜ</h3><ul><li>ANA SAYFA</li><li>BANYO</li><li>KAPI</li><li>KATALOG</li><li>İLETİŞİM</li></ul></div></div><div class="copyright">Telif Hakkı © 2026 Çakir Mobilya. Tüm hakları saklıdır.</div></div></footer><script>
+const menuBtns=document.querySelectorAll('.menu-btn');
+const pages=document.querySelectorAll('.page');
+function showPage(pageId){
+ pages.forEach(p=>p.classList.toggle('active',p.id===pageId));
+ menuBtns.forEach(b=>b.classList.toggle('active',b.dataset.page===pageId));
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('.go-page').forEach(btn=>btn.addEventListener('click',()=>showPage(btn.dataset.page)));
+menuBtns.forEach(btn=>btn.addEventListener('click',()=>showPage(btn.dataset.page)));
+
+const subtabs=document.querySelectorAll('.subtab');
+const subcontents=document.querySelectorAll('.subcontent');
+subtabs.forEach(tab=>tab.addEventListener('click',()=>{
+ subtabs.forEach(t=>t.classList.remove('active'));
+ subcontents.forEach(c=>c.classList.remove('active'));
+ tab.classList.add('active');
+ document.getElementById(tab.dataset.sub).classList.add('active');
+}));
+
+const companyBtns=document.querySelectorAll('[data-company]');
+const companyPanels=document.querySelectorAll('#ic .company-panel');
+companyBtns.forEach(btn=>btn.addEventListener('click',()=>{
+ companyBtns.forEach(b=>b.classList.remove('active'));
+ companyPanels.forEach(p=>p.classList.remove('active'));
+ btn.classList.add('active');
+ document.getElementById(btn.dataset.company).classList.add('active');
+}));
+
+const companyBtnsDis=document.querySelectorAll('[data-company-dis]');
+const companyPanelsDis=document.querySelectorAll('#dis .company-panel');
+companyBtnsDis.forEach(btn=>btn.addEventListener('click',()=>{
+ companyBtnsDis.forEach(b=>b.classList.remove('active'));
+ companyPanelsDis.forEach(p=>p.classList.remove('active'));
+ btn.classList.add('active');
+ document.getElementById(btn.dataset.companyDis).classList.add('active');
+}));
+
+
+
+</script><div class="image-lightbox" id="imageLightbox" aria-hidden="true"><button class="lightbox-close" id="lightboxClose" aria-label="Kapat">×</button><img class="zoomable" id="lightboxImg" src="" alt=""><div class="lightbox-caption" id="lightboxCaption"></div></div><script>
+document.addEventListener('DOMContentLoaded', () => {
+ const lightbox = document.getElementById('imageLightbox');
+ const lightboxImg = document.getElementById('lightboxImg');
+ const lightboxCaption = document.getElementById('lightboxCaption');
+ const lightboxClose = document.getElementById('lightboxClose');
+
+ function openLightbox(src, alt) {
+  if (!src || !lightbox || !lightboxImg) return;
+  lightboxImg.src = src;
+  lightboxImg.alt = alt || '';
+  if (lightboxCaption) lightboxCaption.textContent = alt || '';
+  lightbox.classList.add('active');
+  lightbox.setAttribute('aria-hidden', 'false');
+ }
+
+ function closeLightbox() {
+  if (!lightbox || !lightboxImg) return;
+  lightbox.classList.remove('active');
+  lightbox.setAttribute('aria-hidden', 'true');
+  lightboxImg.src = '';
+  if (lightboxCaption) lightboxCaption.textContent = '';
+ }
+
+ document.querySelectorAll('img.zoomable').forEach((img) => {
+  img.addEventListener('click', (e) => {
+   e.preventDefault();
+   e.stopPropagation();
+   openLightbox(img.currentSrc || img.src, img.alt || '');
+  });
+ });
+
+ if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+ if (lightbox) {
+  lightbox.addEventListener('click', (e) => {
+   if (e.target === lightbox) closeLightbox();
+  });
+ }
+ document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeLightbox();
+ });
+});
+</script></body></html>
